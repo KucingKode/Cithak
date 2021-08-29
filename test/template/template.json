@@ -1,0 +1,15 @@
+{
+   "description": "just for testing !!",
+   "tasks": [
+      "npm:init",
+      "node | index.js",
+      "npm:install | sass express",
+      "npm:devInstall | nodemon"
+   ],
+   "include": [
+      "../outside.txt"
+   ],
+   "exclude": [
+      "**/*-ignore.*"
+   ]
+}

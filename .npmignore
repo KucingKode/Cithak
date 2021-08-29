@@ -1,0 +1,8 @@
+node_modules
+pnpm-lock.yaml
+package-lock.json
+storage
+docs
+src/data.json
+README.md
+test
