@@ -35,6 +35,7 @@ exports.copyFolder = (src, dest, options = {}) => {
       cwd: src,
       ignore: [
         'node_modules',
+        'node_modules/**/*',
         'package-lock.json',
         'pnpm-lock.yaml',
         'yarn.lock',
@@ -55,7 +56,7 @@ exports.copyFolder = (src, dest, options = {}) => {
     if (fs.lstatSync(srcFile).isDirectory()) {
       // it's a directory
       if (!fs.existsSync(destFile)) {
-        fs.mkdirSync(destFile)
+        fs.mkdirSync(destFile, { recursive: true })
       } else {
         success = false
       }

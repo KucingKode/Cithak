@@ -4,7 +4,7 @@
 
 ## 🤔 What Is This
 
-Cithak is a **simple and easy to use template manager** CLI. Cithak was designed to be safe and transparent, so everything will be done with your permission.
+Cithak is a **simple and easy to use template manager** CLI. Cithak was designed to be safe and transparent, so everything will be done under your permission.
 
 ## 📂 Installation
 
