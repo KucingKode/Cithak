@@ -87,7 +87,7 @@ exports.copy = async (options) => {
     let permissionsRegex
     const logs = []
 
-    if (permissions === 'all') {
+    if (config.allowsAll || permissions === 'all') {
       config.allowsAll = true
     } else {
       permissionsRegex = RegExp(`^[${permissions.replace(/,/g, '|')}]$`)

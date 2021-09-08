@@ -34,12 +34,14 @@ function parseArgs(rawArgs) {
         '--yes': Boolean,
         '--safe': Boolean,
         '--help': Boolean,
+        '--version': Boolean,
         '--change': String,
         '--no-join': Boolean,
         '--no-exec': Boolean,
         '-y': '--yes',
         '-s': '--safe',
         '-h': '--help',
+        '-v': '--version',
         '-c': '--change',
       },
       {
@@ -52,6 +54,7 @@ function parseArgs(rawArgs) {
       templateName: args._[1],
       targetPath: args._[2] || '.',
 
+      needVersion: args['--version'],
       needHelp: args['--help'],
       allowsAll: args['--yes'],
       safe: args['--safe'],
@@ -82,11 +85,11 @@ exports.cli = (args) => {
   const options = parseArgs(args)
   if (options.err) return
 
-  if (options.action === 'help' || options.needHelp) {
+  if (options.needVersion) {
+    console.log(`v${fs.readJSONSync(pathTo.PACKAGE_JSON).version}`)
+  } else if (options.action === 'help' || options.needHelp) {
     actions.help(options)
-  }
-
-  if (actions[options.action]) {
+  } else if (actions[options.action]) {
     actions[options.action](options)
   } else {
     actions.help(options, err.INVALID_ACTION)

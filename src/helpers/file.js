@@ -75,13 +75,13 @@ exports.copyFolder = (src, dest, options = {}) => {
           destFile,
           JSON.stringify({ ...srcData, ...destData }, null, 4)
         )
-      } else if (joinable && files.endsWith('.yaml')) {
+      } else if (joinable && file.endsWith('.yaml')) {
         // join yaml
         const srcData = yaml.parse(fs.readFileSync(srcFile))
         const destData = yaml.parse(fs.readFileSync(destFile))
 
         fs.writeFileSync(destFile, yaml.stringify({ ...srcData, ...destData }))
-      } else if (joinable && files.endsWith('.toml')) {
+      } else if (joinable && file.endsWith('.toml')) {
         // join toml
         const srcData = toml.parse(fs.readFileSync(srcFile))
         const destData = toml.parse(fs.readFileSync(destFile))
@@ -89,9 +89,9 @@ exports.copyFolder = (src, dest, options = {}) => {
         fs.writeFileSync(destFile, toml.stringify({ ...srcData, ...destData }))
       } else if (
         joinable &&
-        (files.endsWith('.env') ||
-          files.endsWith('.gitignore') ||
-          files.endsWith('.npmignore'))
+        (file.endsWith('.env') ||
+          file.endsWith('.gitignore') ||
+          file.endsWith('.npmignore'))
       ) {
         // join .env
         const srcData = fs.readFileSync(srcFile)
