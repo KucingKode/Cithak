@@ -17,13 +17,13 @@ npm install -g cithak
 ## 💻 Features
 
 - **Smart replacement**  
-Cithak will not replace your `package.json` file, but it will combine both `package.json` dependencies and update `package.json`.
+Cithak will not replace files that joinable like `.json`, `.yaml`, `.toml`, and `.env`, but cithak will join data from thoose file into one new file, you can disable this feature by add `--no-join` flag.
 
 - **Save for offline**  
 Cithak store templates on your local computer, so you can use your templates even without internet connection. Just type `cth add [template-name] [template/path/from/cwd]` to make template ready to use.
 
 - **Template tasks**  
-With your permission Cithak allows template to initialize git, initialize npm, install dependencies, and run javascript file with node.
+With your permission Cithak allows template to execute npm, node, and all files on your system, but you can disable this with `--no-exec` flag.
 
 - **Safe and transparent**  
 Cithak will log every activity to console and ask permission, so know what happen behind your screen.
@@ -33,7 +33,7 @@ ___
 ## 📖 Quick start
 
 - **Create a template**  
-Create a new folder for your template, your template must have `template.json` that has description section, for more information about `template.json`, [read this section](#template-json).
+Create a new folder for your template, you can configure your template inside `template.json`, it can contain description for your template and many more, for more information about `template.json`, [read this section](#template-json).
 
 ```json
 {
@@ -64,28 +64,14 @@ template.json is important for your template, it contains description and tasks 
 
 - **tasks**  
 
-tasks is array of string represent task to do
+tasks is array of string contains all commands will executed
 
-```json
+```js
 {
    "tasks": [
-      "__comment: initialize git",
-      "git:init",
-
-      "__comment: initialize npm",
-      "npm:init",
-
-      "__comment: execute setup.js file",
-      "node | setup.js",
-
-      "__comment: npm install",
-      "npm:install",
-
-      "__comment: npm install dotenv",
-      "npm:install | dotenv",
-      
-      "__comment: npm install -D nodemon",
-      "npm:devInstall | nodemon" 
+      "npm i package",
+      "node index.js",
+      "echo 'hello'"
    ]
 }
 ```
@@ -94,7 +80,7 @@ tasks is array of string represent task to do
 
 include is array of [glob](https://github.com/isaacs/node-glob#readme) string will include a file to the template folder if that file or folder is outside from the template folder.
 
-```json
+```js
 "include": [
    "../outside.js",
    "../outside-folder/outside2.js"
@@ -105,7 +91,7 @@ include is array of [glob](https://github.com/isaacs/node-glob#readme) string wi
 
 exclude is array of [glob](https://github.com/isaacs/node-glob#readme) string that will ignore files that match with it's pattern
 
-```json
+```js
 "exclude": [
    "**/*-ignore.*"
 ]

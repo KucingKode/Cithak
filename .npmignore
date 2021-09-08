@@ -6,3 +6,6 @@ docs
 src/data.json
 README.md
 test
+.prettierignore
+.prettierrc
+.eslintrc.json

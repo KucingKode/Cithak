@@ -1,4 +1,5 @@
 {
+   "name": "abu",
    "dependencies": {
       "arg": "^5.0.1"
    }

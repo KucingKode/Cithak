@@ -1,10 +1,9 @@
 {
    "description": "just for testing !!",
    "tasks": [
-      "npm:init",
-      "node | index.js",
-      "npm:install | sass express",
-      "npm:devInstall | nodemon"
+      "node index.js",
+      "npm i sass",
+      "echo 'hello world!'"
    ],
    "include": [
       "../outside.txt"
