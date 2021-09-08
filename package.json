@@ -1,6 +1,6 @@
 {
   "name": "cithak",
-  "version": "2.0.0-alpha",
+  "version": "2.0.1-alpha",
   "description": "Just a simple template manager",
   "main": "src/index.js",
   "bin": {
@@ -49,6 +49,6 @@
     "prettier": "^2.3.2"
   },
   "engines": {
-    "node": "^10.0.0"
+    "node": ">=10.0.0"
   }
 }
