@@ -1,4 +1,7 @@
 import eslint from '@rollup/plugin-eslint'
+import { terser } from 'rollup-plugin-terser'
+
+const production = process.env.NODE_ENV === 'production'
 
 /**
  * @type {import('rollup').RollupOptions}
@@ -14,7 +17,8 @@ const config = {
     'chalk', 'yaml', '@iarna/toml', 'listr', 'execa'
   ],
   plugins: [
-    eslint()
+    eslint(),
+    production && terser()
   ],
   watch: {
     include: [

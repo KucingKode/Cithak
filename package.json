@@ -1,10 +1,11 @@
 {
   "name": "cithak",
-  "version": "1.0.0-beta",
+  "version": "1.0.1-beta",
   "description": "Just a simple template manager",
-  "main": "src/index.js",
+  "main": "build/file/cithak.js",
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
+    "publish": "npm run build && npm publish",
     "dev": "rollup -cw"
   },
   "bin": {
@@ -53,7 +54,8 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.3.2",
-    "rollup": "^1.32.1"
+    "rollup": "^2.56.3",
+    "rollup-plugin-terser": "^7.0.2"
   },
   "engines": {
     "node": ">=10.0.0"
