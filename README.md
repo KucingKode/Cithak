@@ -4,9 +4,18 @@
 
 ---
 
+[![badge](https://img.shields.io/github/license/KucingKode/Cithak)](./LICENSE.md)
+[![badge](https://img.shields.io/github/last-commit/KucingKode/Cithak)](https://github.com/KucingKode/Cithak)
+[![badge](https://img.shields.io/github/package-json/v/KucingKode/Cithak)](https://www.npmjs.com/package/cithak)
+[![badge](https://img.shields.io/npm/dw/cithak)](https://www.npmjs.com/package/cithak)
+
 ## 🤔 What Is This
 
 Cithak is a **simple, secure yet powerful template manager** CLI. Cithak was designed to be safe and transparent, so everything will be done under your permission.
+
+## ❗ Migrating from alpha
+
+If you want to **update Cithak from alpha to beta version**, please copy all of your template first, or you will lost all of your saved template.
 
 ## 📂 Installation
 

@@ -1,11 +1,11 @@
 {
   "name": "cithak",
-  "version": "1.0.1-beta",
+  "version": "1.0.2-beta",
   "description": "Just a simple template manager",
   "main": "build/file/cithak.js",
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
-    "publish": "npm run build && npm publish",
+    "publish": "npm run build",
     "dev": "rollup -cw"
   },
   "bin": {
@@ -42,6 +42,7 @@
     "glob": "^7.1.7",
     "inquirer": "^8.1.2",
     "listr": "^0.14.3",
+    "node-fetch": "^3.0.0",
     "yaml": "^1.10.2"
   },
   "devDependencies": {
