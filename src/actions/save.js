@@ -6,39 +6,40 @@ import * as paths from '../constants/paths'
 import * as errors from '../constants/errors'
 import * as file from '../helpers/file'
 
-export async function update(options) {
-  const templatePath = file.getTargetPath(options.targetPath)
+export async function save(options) {
+  let config = { ...options, templateName: options.templateNames[0] }
+
+  const templatePath = file.getTargetPath(config.targetPath)
   if (!fs.existsSync(templatePath)) return
 
   const storageData = fs.readJSONSync(paths.DATA_JSON)
 
   // prompt question if no template name
-  options = Object.assign(
-    options,
+  config = Object.assign(
+    config,
     await inquirer.prompt([
       {
         type: 'input',
         name: 'templateName',
-        when: !options.templateName,
+        when: !config.templateName,
         message: 'Please enter template name',
       },
     ])
   )
 
-  if (!options.templateName) {
+  if (!config.templateName) {
     errors.send(errors.NO_TEMPLATE_NAME)
     return
   }
 
   // if there is a template with same name in storage, throw error
-  if (!storageData[options.templateName]) {
-    errors.send(errors.TEMPLATE_NOT_FOUND, { name: options.templateName })
+  if (storageData[config.templateName]) {
+    errors.send(errors.TEMPLATE_EXIST, { name: config.templateName })
     return
   }
 
-  // copy template to storage
-  const storageTemplatePath = storageData[options.templateName]
-  const templateData = file.getTemplateData(storageTemplatePath)
+  const storageTemplatePath = file.getStorageTemplatePath(config.templateName)
+  const templateData = file.getTemplateData(templatePath)
 
   try {
     file.copyFolder(templatePath, storageTemplatePath, {
@@ -50,5 +51,8 @@ export async function update(options) {
     return
   }
 
-  console.log(chalk.green('SUCCESS!'), `Template updated!`)
+  storageData[config.templateName] = storageTemplatePath
+  fs.writeFileSync(paths.DATA_JSON, JSON.stringify(storageData))
+
+  console.log(chalk.green('SUCCESS!'), `Template saved!`)
 }

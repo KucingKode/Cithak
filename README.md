@@ -2,13 +2,15 @@
 
 ![icon](./icon.svg)
 
+---
+
 ## 🤔 What Is This
 
-Cithak is a **simple and easy to use template manager** CLI. Cithak was designed to be safe and transparent, so everything will be done under your permission.
+Cithak is a **simple, secure yet powerful template manager** CLI. Cithak was designed to be safe and transparent, so everything will be done under your permission.
 
 ## 📂 Installation
 
-To install Cithak CLI, your node.js version must higher or equal 10.0.0, then just type this line to your terminal
+To install Cithak CLI, your node.js version must higher than 10, then just type this line to your terminal
 
 ```bash
 npm install -g cithak
@@ -19,18 +21,25 @@ npm install -g cithak
 - **Smart replacement**  
   Cithak will not replace files that joinable like `.json`, `.yaml`, `.toml`, and `.env`, but cithak will join data from thoose file into one new file, you can disable this feature by add `--no-join` flag.
 
-- **Save for offline**  
-  Cithak store templates on your local computer, so you can use your templates even without internet connection. Just type `cth add [template-name] [template/path/from/cwd]` to make template ready to use.
+- **Rich features**  
+  Cithak has a lot of super useful feature like save template to your local computer offline use, merge templates, and many more.
 
 - **Template tasks**  
-  With your permission Cithak allows template to execute npm, node, and all files on your system, but you can disable this with `--no-exec` flag.
+  <u>Under your permission</u> Cithak allows template to execute npm, node, and all files on your system, but you can disable this with `--no-exec` flag.
 
 - **Safe and transparent**  
-  Cithak will log every activity to console and ask permission, so know what happen behind your screen.
+  Cithak will <u>log every template activities</u> to console and ask for your permission, so you will know what happen behind your screen.
 
 ---
 
-## 📖 Quick start
+## 📃 Documentation
+
+- [Quick Start](#💡-Quick-Start)
+- [Docs](#📘-Docs)
+- [Contributing](https://github.com/KucingKode/Cithak/blob/main/CONTRIBUTING.md)
+- [License](#📃-License)
+
+## 💡 Quick Start
 
 - **Create a template**  
   Create a new folder for your template, you can configure your template inside `template.json`, it can contain description for your template and many more, for more information about `template.json`, [read this section](#template-json).
@@ -54,11 +63,16 @@ Congratulation, now you know how to use Cithak CLI🎉
 
 ## 📘 Docs
 
-### > CLI
+- [CLI](#CLI)
+- [Template JSON](#Template-JSON)
 
-for cli information type `cth --help` in your terminal
+### CLI
 
-### > **Template JSON**
+Cithak can save template to your computer with `cth save`, clone stored template with `cth clone`, remove saved template with `cth remove` or update it with `cth update`, and merge templates with `cth merge`, you can clone or remove multiple templates by type `cth [command] my-template1 my-template2`.
+
+**for more CLI information type `cth --help` in your terminal**
+
+### Template JSON
 
 template.json is important for your template, it contains description and tasks of your template, template.json must have `description` that describe the template, and template.json can also have:
 
@@ -101,8 +115,8 @@ exclude is array of [glob](https://github.com/isaacs/node-glob#readme) string th
 
 ## 🎂 Contibuting
 
-Coming soon...
+If you interested in contributing to this project, please read our [CONTRIBUTING.md](https://github.com/KucingKode/Cithak/blob/main/CONTRIBUTING.md).
 
 ## 📃 License
 
-Cithak use MIT License.
+Cithak was published under MIT License.

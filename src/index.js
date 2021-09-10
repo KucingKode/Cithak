@@ -1,18 +1,21 @@
-const arg = require('arg')
-const fs = require('fs-extra')
+import arg from 'arg'
+import fs from 'fs-extra'
 
-const pathTo = require('./constants/paths')
-const err = require('./constants/error')
+import * as paths from './constants/paths'
+import * as errors from './constants/errors'
 
 // actions
-const helpAction = require('./actions/help').help
-const listAction = require('./actions/list').list
-const infoAction = require('./actions/info').info
+import { help as helpAction } from './actions/help'
+import { list as listAction } from './actions/list'
+import { info as infoAction } from './actions/info'
 
-const addAction = require('./actions/add').add
-const copyAction = require('./actions/copy').copy
-const removeAction = require('./actions/remove').remove
-const updateAction = require('./actions/update').update
+import { save as saveAction } from './actions/save'
+import { clone as cloneAction } from './actions/clone'
+import { remove as removeAction } from './actions/remove'
+import { update as updateAction } from './actions/update'
+import { merge as mergeAction } from './actions/merge'
+
+import * as backupAction from './actions/backup'
 
 const actions = {
   // helper action
@@ -21,10 +24,15 @@ const actions = {
   info: infoAction,
 
   // main action
-  add: addAction,
-  copy: copyAction,
+  save: saveAction,
+  clone: cloneAction,
   remove: removeAction,
   update: updateAction,
+  merge: mergeAction,
+
+  // backup action
+  backup: backupAction.backup,
+  load: backupAction.load,
 }
 
 function parseArgs(rawArgs) {
@@ -38,11 +46,13 @@ function parseArgs(rawArgs) {
         '--change': String,
         '--no-join': Boolean,
         '--no-exec': Boolean,
+        '--path': String,
         '-y': '--yes',
         '-s': '--safe',
         '-h': '--help',
         '-v': '--version',
         '-c': '--change',
+        '-p': '--path',
       },
       {
         argv: rawArgs.slice(2),
@@ -51,8 +61,8 @@ function parseArgs(rawArgs) {
 
     return {
       action: !args._[0] ? 'help' : args._[0],
-      templateName: args._[1],
-      targetPath: args._[2] || '.',
+      targetPath: args['--path'] || '.',
+      templateNames: args._.slice(1, args._.length),
 
       needVersion: args['--version'],
       needHelp: args['--help'],
@@ -64,7 +74,7 @@ function parseArgs(rawArgs) {
       changes: parseChanges(args['--change']),
     }
   } catch ({ message }) {
-    console.log(err.format(message))
+    console.log(errors.format(message))
     return { err: true }
   }
 }
@@ -76,22 +86,22 @@ function parseChanges(str) {
 }
 
 exports.cli = (args) => {
-  if (!fs.existsSync(pathTo.STORAGE)) {
+  if (!fs.existsSync(paths.STORAGE)) {
     // setup
-    fs.mkdirSync(pathTo.STORAGE)
-    fs.writeFileSync(pathTo.DATA_JSON, '{}')
+    fs.mkdirSync(paths.STORAGE, { recursive: true })
+    fs.writeFileSync(paths.DATA_JSON, '{}')
   }
 
   const options = parseArgs(args)
   if (options.err) return
 
   if (options.needVersion) {
-    console.log(`v${fs.readJSONSync(pathTo.PACKAGE_JSON).version}`)
+    console.log(`v${fs.readJSONSync(paths.PACKAGE_JSON).version}`)
   } else if (options.action === 'help' || options.needHelp) {
     actions.help(options)
   } else if (actions[options.action]) {
     actions[options.action](options)
   } else {
-    actions.help(options, err.INVALID_ACTION)
+    actions.help(options, errors.INVALID_ACTION)
   }
 }

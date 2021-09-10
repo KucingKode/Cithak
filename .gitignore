@@ -1,5 +1,5 @@
 package-lock.json
+pnpm-lock.yaml
 node_modules
-storage
-test/project
-src/data.json
+build
+test

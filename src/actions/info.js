@@ -1,13 +1,19 @@
-const fs = require('fs-extra')
-const chalk = require('chalk')
-const inquirer = require('inquirer')
+import fs from 'fs-extra'
+import chalk from 'chalk'
+import inquirer from 'inquirer'
 
-const errors = require('../constants/error')
-const pathTo = require('../constants/paths')
-const { getTemplateData } = require('../helpers/file')
+import * as errors from '../constants/errors'
+import * as paths from '../constants/paths'
+import * as file from '../helpers/file'
 
-exports.info = async (options) => {
-  const storageData = fs.readJSONSync(pathTo.DATA_JSON)
+export async function info(options) {
+  options.templateNames.forEach((templateName) => {
+    logInfo({ ...options, templateName })
+  })
+}
+
+async function logInfo(options) {
+  const storageData = fs.readJSONSync(paths.DATA_JSON)
 
   // prompt question if no template name
   options = Object.assign(
@@ -35,6 +41,10 @@ exports.info = async (options) => {
     return
   }
 
-  const templateDescription = getTemplateData(templatePath).description || ''
-  console.log(`${chalk.magenta(options.templateName)}\n${templateDescription}`)
+  const templateDescription =
+    file.getTemplateData(templatePath).description || ''
+
+  console.log(
+    `${chalk.magenta(options.templateName)}\n${templateDescription}\n`
+  )
 }

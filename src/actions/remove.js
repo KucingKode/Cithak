@@ -1,13 +1,24 @@
-const fs = require('fs-extra')
-const chalk = require('chalk')
-const inquirer = require('inquirer')
+import fs from 'fs-extra'
+import chalk from 'chalk'
+import inquirer from 'inquirer'
 
-const pathTo = require('../constants/paths')
-const errors = require('../constants/error')
-const { removeFolder } = require('../helpers/file')
+import * as paths from '../constants/paths'
+import * as errors from '../constants/errors'
+import * as file from '../helpers/file'
 
-exports.remove = async (options) => {
-  const storageData = fs.readJSONSync(pathTo.DATA_JSON)
+export async function remove(options, i = 0) {
+  if (i === options.templateNames.length) return
+
+  const templateName = options.templateNames[i]
+
+  console.log(chalk.magenta(templateName))
+  await removeTemplate({ ...options, templateName })
+  console.log('\n')
+  await remove(options, i + 1)
+}
+
+async function removeTemplate(options) {
+  const storageData = fs.readJSONSync(paths.DATA_JSON)
 
   // prompt question if no template name
   options = Object.assign(
@@ -39,7 +50,7 @@ exports.remove = async (options) => {
 
   // delete template folder from storage
   try {
-    removeFolder(templatePath)
+    file.removeFolder(templatePath)
     delete storageData[options.templateName]
   } catch (err) {
     console.log(chalk.red('ERR!'), err.message)
@@ -47,7 +58,7 @@ exports.remove = async (options) => {
   }
 
   // rewrite storage data
-  fs.writeFileSync(pathTo.DATA_JSON, JSON.stringify(storageData))
+  fs.writeFileSync(paths.DATA_JSON, JSON.stringify(storageData))
 
   console.log(chalk.green('SUCCESS!'), `Template removed!`)
 }

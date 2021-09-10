@@ -1,1 +1,3 @@
-exports.trim = (str) => str.replace(/\n {2,}/g, '\n')
+export function trim(str) {
+  return str.replace(/\n {2,}/g, '\n')
+}

@@ -1,17 +1,17 @@
-const fs = require('fs-extra')
-const chalk = require('chalk')
+import fs from 'fs-extra'
+import chalk from 'chalk'
 
-const pathTo = require('../constants/paths')
-const { getTemplateData } = require('../helpers/file')
+import * as paths from '../constants/paths'
+import * as file from '../helpers/file'
 
-exports.list = async () => {
-  const storageData = fs.readJSONSync(pathTo.DATA_JSON)
+export async function list() {
+  const storageData = fs.readJSONSync(paths.DATA_JSON)
 
-  let list = ''
+  let string = ''
   Object.keys(storageData).forEach((key) => {
-    const desc = getTemplateData(storageData[key]).description || '...'
-    list += `- ${chalk.magenta(key)}\n${desc}\n\n`
+    const desc = file.getTemplateData(storageData[key]).description || '...'
+    string += `- ${chalk.magenta(key)}\n${desc}\n\n`
   })
 
-  console.log(list.replace(/\n\n$/, ''))
+  console.log(string.replace(/\n\n$/, ''))
 }

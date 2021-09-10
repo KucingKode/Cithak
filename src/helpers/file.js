@@ -1,20 +1,21 @@
-const fs = require('fs-extra')
-const glob = require('glob')
-const chalk = require('chalk')
-const { join } = require('path')
+import fs from 'fs-extra'
+import glob from 'glob'
+import chalk from 'chalk'
+import { join } from 'path'
 
-const yaml = require('yaml')
-const toml = require('@iarna/toml')
+import yaml from 'yaml'
+import toml from '@iarna/toml'
 
-const pathTo = require('../constants/paths')
+import * as paths from '../constants/paths'
 
 // path generator
-exports.getTargetPath = (targetPath) => join(process.cwd(), targetPath)
-exports.getStorageTemplatePath = (templateName) =>
-  join(pathTo.STORAGE, templateName)
+// eslint-disable-next-line no-shadow
+export const getTargetPath = (...subpaths) => join(process.cwd(), ...subpaths)
+export const getStorageTemplatePath = (templateName) =>
+  join(paths.STORAGE, templateName)
 
 // data getter
-exports.getTemplateData = (templatePath) => {
+export function getTemplateData(templatePath) {
   const path = join(templatePath, 'template.json')
 
   if (!fs.existsSync(path)) return {}
@@ -22,7 +23,7 @@ exports.getTemplateData = (templatePath) => {
 }
 
 // folder operations
-exports.copyFolder = (src, dest, options = {}) => {
+export function copyFolder(src, dest, options = {}) {
   if (!fs.existsSync(dest)) {
     fs.mkdirSync(dest)
   }
@@ -50,7 +51,7 @@ exports.copyFolder = (src, dest, options = {}) => {
 
   Object.keys(files).forEach((file) => {
     const srcFile = join(src, file)
-    const destFile = join(dest, file.replace(/^(?:\.{2}\/?)*/, ''))
+    const destFile = join(dest, file.replace(/(?:\.{2}\/?)*/, ''))
     let success = true
 
     if (fs.lstatSync(srcFile).isDirectory()) {
@@ -74,20 +75,20 @@ exports.copyFolder = (src, dest, options = {}) => {
 
         fs.writeFileSync(
           destFile,
-          JSON.stringify({ ...srcData, ...destData }, null, 4)
+          JSON.stringify(deepMerge(srcData, destData), null, 4)
         )
       } else if (joinable && file.endsWith('.yaml')) {
         // join yaml
         const srcData = yaml.parse(fs.readFileSync(srcFile))
         const destData = yaml.parse(fs.readFileSync(destFile))
 
-        fs.writeFileSync(destFile, yaml.stringify({ ...srcData, ...destData }))
+        fs.writeFileSync(destFile, yaml.stringify(deepMerge(srcData, destData)))
       } else if (joinable && file.endsWith('.toml')) {
         // join toml
         const srcData = toml.parse(fs.readFileSync(srcFile))
         const destData = toml.parse(fs.readFileSync(destFile))
 
-        fs.writeFileSync(destFile, toml.stringify({ ...srcData, ...destData }))
+        fs.writeFileSync(destFile, toml.stringify(deepMerge(srcData, destData)))
       } else if (
         joinable &&
         (file.endsWith('.env') ||
@@ -108,7 +109,7 @@ exports.copyFolder = (src, dest, options = {}) => {
   })
 }
 
-exports.removeFolder = (src) => {
+export function removeFolder(src) {
   const files = glob
     .sync('**/*', {
       cwd: src,
@@ -128,4 +129,26 @@ exports.removeFolder = (src) => {
   })
 
   fs.rmdirSync(src)
+}
+
+function deepMerge(target, ...sources) {
+  function isObject(item) {
+    return item && typeof item === 'object' && !Array.isArray(item)
+  }
+
+  if (!sources.length) return target
+  const source = sources.shift()
+
+  if (isObject(target) && isObject(source)) {
+    Object.keys(source).forEach((key) => {
+      if (isObject(source[key])) {
+        if (!target[key]) Object.assign(target, { [key]: {} })
+        deepMerge(target[key], source[key])
+      } else {
+        Object.assign(target, { [key]: source[key] })
+      }
+    })
+  }
+
+  return deepMerge(target, ...sources)
 }

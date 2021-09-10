@@ -1,11 +1,12 @@
 node_modules
 pnpm-lock.yaml
 package-lock.json
-storage
+rollup.config.js
+src
 docs
-src/data.json
-README.md
 test
+CHANGELOG.md
+CONTRIBUTING.md
 .prettierignore
 .prettierrc
 .eslintrc.json

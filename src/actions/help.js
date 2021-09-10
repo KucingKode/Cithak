@@ -1,16 +1,23 @@
-const err = require('../constants/error')
-const info = require('../constants/info')
-const { trim } = require('../helpers/string')
+import chalk from 'chalk'
 
-exports.help = async (options, state) => {
-  if (state === err.INVALID_ACTION) {
-    err.send(state, { action: options.action })
+import * as errors from '../constants/errors'
+import * as info from '../constants/info'
+import * as string from '../helpers/string'
+
+export async function help(options, state) {
+  if (state === errors.INVALID_ACTION) {
+    errors.send(state, { action: options.action })
+    console.log(
+      chalk.blue('INFO!'),
+      `Try to run ${chalk.magenta('cth --help')} for help`
+    )
     return
   }
 
   if (info[options.action]) {
-    console.log(trim(info[options.action]))
+    console.log(string.trim(info[options.action]))
+    if (options.action !== 'flags') console.log(string.trim(info.flags))
   } else {
-    console.log(trim(Object.values(info).join('\n')))
+    console.log(string.trim(info.complete))
   }
 }

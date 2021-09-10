@@ -1,23 +1,28 @@
-const fs = require('fs-extra')
-const chalk = require('chalk')
-const Listr = require('listr')
-const execa = require('execa')
-const inquirer = require('inquirer')
+import fs from 'fs-extra'
+import chalk from 'chalk'
+import Listr from 'listr'
+import execa from 'execa'
+import inquirer from 'inquirer'
 
-const pathTo = require('../constants/paths')
-const errors = require('../constants/error')
-const {
-  getTargetPath,
-  getStorageTemplatePath,
-  copyFolder,
-  getTemplateData,
-} = require('../helpers/file')
+import * as paths from '../constants/paths'
+import * as errors from '../constants/errors'
+import * as file from '../helpers/file'
 
-exports.copy = async (options) => {
+export async function clone(options, i = 0) {
+  if (i === options.templateNames.length) return
+
+  const templateName = options.templateNames[i]
+
+  console.log(chalk.magenta(templateName), '\n')
+  await cloneTemplate({ ...options, templateName })
+  await clone(options, i + 1)
+}
+
+async function cloneTemplate(options) {
   let config = options
 
-  const projectPath = getTargetPath(config.targetPath)
-  const storageData = fs.readJSONSync(pathTo.DATA_JSON)
+  const projectPath = file.getTargetPath(config.targetPath)
+  const storageData = fs.readJSONSync(paths.DATA_JSON)
 
   // prompt question if no template name
   config = Object.assign(
@@ -43,12 +48,12 @@ exports.copy = async (options) => {
     return
   }
 
-  // copy template
-  const storageTemplatePath = getStorageTemplatePath(config.templateName)
-  const templateData = getTemplateData(storageTemplatePath)
+  // clone template
+  const storageTemplatePath = file.getStorageTemplatePath(config.templateName)
+  const templateData = file.getTemplateData(storageTemplatePath)
 
   try {
-    copyFolder(storageTemplatePath, projectPath, {
+    file.copyFolder(storageTemplatePath, projectPath, {
       safe: config.safe,
       join: !config.noJoin,
     })
@@ -57,10 +62,19 @@ exports.copy = async (options) => {
     return
   }
 
-  // run template tasks
   if (!config.noExec && templateData.tasks) {
-    const { tasks } = templateData
+    await executeTasks(templateData.tasks, projectPath, config)
+  }
 
+  console.log(chalk.green('SUCCESS!'), `Template cloned!`)
+}
+
+async function executeTasks(tasks, cwd, config) {
+  // ask permissions
+  let permissionsRegex
+  const logs = []
+
+  if (!config.allowsAll) {
     console.log('\n')
     for (let i = 0; i < tasks.length; i += 1) {
       ;(config.changes || []).forEach((change) => {
@@ -82,43 +96,38 @@ exports.copy = async (options) => {
         message: `${chalk.gray('ex: 1,2,3 or all or 1-3 or 1-2,7')}`,
       },
     ])
-    console.log('\n')
-
-    let permissionsRegex
-    const logs = []
-
     if (config.allowsAll || permissions === 'all') {
       config.allowsAll = true
     } else {
       permissionsRegex = RegExp(`^[${permissions.replace(/,/g, '|')}]$`)
     }
-
-    await new Listr(
-      tasks.map((task, i) => ({
-        title: task,
-        task: () => execute(task, projectPath, logs),
-        enabled: () =>
-          config.allowsAll || permissionsRegex.test((i + 1).toString()),
-      }))
-    ).run()
-
-    if (logs.length > 0) console.log('\n')
-    Object.keys(logs).forEach((key) => {
-      console.log(chalk.magenta(key))
-      console.log(logs[key])
-    })
-    if (logs.length > 0) console.log('\n')
   }
 
-  console.log(chalk.green('SUCCESS!'), `Template added!`)
+  // run tasks
+  console.log('\n')
+  await new Listr(
+    tasks.map((task, i) => ({
+      title: task,
+      task: () => execute(task, cwd, logs),
+      enabled: () =>
+        config.allowsAll || permissionsRegex.test((i + 1).toString()),
+    }))
+  ).run()
+
+  if (logs.length > 0) console.log('\n')
+  Object.keys(logs).forEach((key) => {
+    console.log(chalk.magenta(key))
+    console.log(logs[key])
+  })
+  if (logs.length > 0) console.log('\n')
 }
 
 async function execute(command, cwd, logs) {
-  const file = command.split(' ')[0]
+  const executable = command.split(' ')[0]
   const args = command.split(' ').slice(1)
 
   try {
-    const { stdout } = await execa(file, args, { cwd })
+    const { stdout } = await execa(executable, args, { cwd })
     logs[command] = stdout
     Promise.resolve()
   } catch (err) {
