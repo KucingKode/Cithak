@@ -1,12 +1,17 @@
 import fs from 'fs-extra'
 import chalk from 'chalk'
 import Listr from 'listr'
-import execa from 'execa'
+import { promisify } from 'util'
+import shelljs from 'shelljs'
 import inquirer from 'inquirer'
 
-import * as paths from '../constants/paths'
-import * as errors from '../constants/errors'
-import * as file from '../helpers/file'
+import { save } from './save'
+import { remove } from './remove'
+
+import * as pathHelper from '../helpers/path'
+import * as errorHelper from '../helpers/error'
+import * as fileHelper from '../helpers/file'
+import * as gitHelper from '../helpers/git'
 
 export async function clone(options, i = 0) {
   if (i === options.templateNames.length) return
@@ -14,70 +19,68 @@ export async function clone(options, i = 0) {
   const templateName = options.templateNames[i]
 
   console.log(chalk.magenta(templateName), '\n')
-  await cloneTemplate({ ...options, templateName })
+
+  if (gitHelper.gitRepoRegex.test(templateName)) {
+    await cloneGit({ ...options, templateName })
+  } else {
+    await cloneTemplate({ ...options, templateName })
+  }
   await clone(options, i + 1)
 }
 
+async function cloneGit(options) {
+  await save({
+    ...options,
+    templateNames: ['CthTemp'],
+    targetPath: options.templateName,
+  })
+  await cloneTemplate({ ...options, templateName: 'CthTemp' })
+  await remove({ ...options, templateNames: ['CthTemp'] })
+}
+
 async function cloneTemplate(options) {
-  let config = options
-
-  const projectPath = file.getTargetPath(config.targetPath)
-  const storageData = fs.readJSONSync(paths.DATA_JSON)
-
-  // prompt question if no template name
-  config = Object.assign(
-    config,
-    await inquirer.prompt([
-      {
-        type: 'input',
-        name: 'templateName',
-        when: !config.templateName,
-        message: 'Please enter template name',
-      },
-    ])
-  )
-
-  if (!config.templateName) {
-    errors.send(errors.NO_TEMPLATE_NAME)
-    return
-  }
+  const projectPath = pathHelper.getTargetPath(options.targetPath)
+  const storageData = fs.readJSONSync(pathHelper.DATA_JSON)
 
   // if there is a no template with same name in storage, throw error
-  if (!storageData[config.templateName]) {
-    errors.send(errors.TEMPLATE_NOT_FOUND, { name: config.templateName })
+  if (!storageData[options.templateName]) {
+    errorHelper.send(errorHelper.TEMPLATE_NOT_FOUND, {
+      name: options.templateName,
+    })
     return
   }
 
   // clone template
-  const storageTemplatePath = file.getStorageTemplatePath(config.templateName)
-  const templateData = file.getTemplateData(storageTemplatePath)
+  const storageTemplatePath = pathHelper.getStorageTemplatePath(
+    options.templateName
+  )
+  const templateData = fileHelper.getTemplateData(storageTemplatePath)
 
   try {
-    file.copyFolder(storageTemplatePath, projectPath, {
-      safe: config.safe,
-      join: !config.noJoin,
+    fileHelper.copyFolder(storageTemplatePath, projectPath, {
+      safe: options.safe,
+      join: !options.noJoin,
     })
   } catch (err) {
     console.log(chalk.red('ERR!'), err)
     return
   }
 
-  if (!config.noExec && templateData.tasks) {
-    await executeTasks(templateData.tasks, projectPath, config)
+  if (!options.noExec && templateData.tasks) {
+    await executeTasks(templateData.tasks, projectPath, options)
   }
 
   console.log(chalk.green('SUCCESS!'), `Template cloned!`)
 }
 
-async function executeTasks(tasks, cwd, config) {
+async function executeTasks(tasks, cwd, options) {
   // ask permissions
   let permissionsRegex
   const logs = []
 
-  if (!config.allowsAll) {
-    console.log('\n')
+  if (!options.allowsAll) {
     for (let i = 0; i < tasks.length; i += 1) {
-      ;(config.changes || []).forEach((change) => {
+      ;(options.changes || []).forEach((change) => {
         tasks[i] = tasks[i].replace(RegExp(`^${change[0]}`), change[1])
       })
 
@@ -91,28 +94,28 @@ async function executeTasks(tasks, cwd, config) {
       {
         type: 'input',
         name: 'permissions',
-        when: !config.allowsAll,
+        when: !options.allowsAll,
         default: 'none',
         message: `${chalk.gray('ex: 1,2,3 or all or 1-3 or 1-2,7')}`,
       },
     ])
-    if (config.allowsAll || permissions === 'all') {
-      config.allowsAll = true
+    if (options.allowsAll || permissions === 'all') {
+      options.allowsAll = true
     } else {
       permissionsRegex = RegExp(`^[${permissions.replace(/,/g, '|')}]$`)
     }
   }
 
   // run tasks
-  console.log('\n')
   await new Listr(
     tasks.map((task, i) => ({
       title: task,
       task: () => execute(task, cwd, logs),
       enabled: () =>
-        config.allowsAll || permissionsRegex.test((i + 1).toString()),
+        options.allowsAll || permissionsRegex.test((i + 1).toString()),
     }))
   ).run()
+  console.log('\n')
 
   if (logs.length > 0) console.log('\n')
   Object.keys(logs).forEach((key) => {
@@ -123,11 +126,15 @@ async function executeTasks(tasks, cwd, config) {
 }
 
 async function execute(command, cwd, logs) {
-  const executable = command.split(' ')[0]
-  const args = command.split(' ').slice(1)
-
   try {
-    const { stdout } = await execa(executable, args, { cwd })
+    const exec = promisify(shelljs.exec)
+
+    shelljs.cd(cwd)
+    const stdout = await exec(command, {
+      silent: true,
+      async: true,
+    })
+
     logs[command] = stdout
     Promise.resolve()
   } catch (err) {

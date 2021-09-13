@@ -6,14 +6,6 @@ import { join } from 'path'
 import yaml from 'yaml'
 import toml from '@iarna/toml'
 
-import * as paths from '../constants/paths'
-
-// path generator
-// eslint-disable-next-line no-shadow
-export const getTargetPath = (...subpaths) => join(process.cwd(), ...subpaths)
-export const getStorageTemplatePath = (templateName) =>
-  join(paths.STORAGE, templateName)
-
 // data getter
 export function getTemplateData(templatePath) {
   const path = join(templatePath, 'template.json')
@@ -34,6 +26,7 @@ export function copyFolder(src, dest, options = {}) {
   patterns.forEach((pattern) => {
     const matches = glob.sync(pattern, {
       cwd: src,
+      dot: true,
       ignore: [
         'node_modules',
         'node_modules/**/*',
@@ -112,6 +105,7 @@ export function copyFolder(src, dest, options = {}) {
 export function removeFolder(src) {
   const files = glob
     .sync('**/*', {
+      dot: true,
       cwd: src,
     })
     .reverse()

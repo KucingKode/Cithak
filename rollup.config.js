@@ -14,7 +14,8 @@ const config = {
   },
   external: [
     'fs-extra', 'glob', 'arg', 'inquirer', 'path', 'os',
-    'chalk', 'yaml', '@iarna/toml', 'listr', 'execa'
+    'chalk', 'yaml', '@iarna/toml', 'listr', 'execa', 'util',
+    'shelljs'
   ],
   plugins: [
     eslint(),

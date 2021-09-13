@@ -13,18 +13,6 @@
 
 Cithak is a **simple, secure yet powerful template manager** CLI. Cithak was designed to be safe and transparent, so everything will be done under your permission.
 
-## ❗ Migrating from alpha
-
-If you want to **update Cithak from alpha to beta version**, please copy all of your template first, or you will lost all of your saved template.
-
-## 📂 Installation
-
-To install Cithak CLI, your node.js version must higher than 10, then just type this line to your terminal
-
-```bash
-npm install -g cithak
-```
-
 ## 💻 Features
 
 - **Smart replacement**  
@@ -39,14 +27,26 @@ npm install -g cithak
 - **Safe and transparent**  
   Cithak will <u>log every template activities</u> to console and ask for your permission, so you will know what happen behind your screen.
 
+## ❗ Migrating from alpha
+
+If you want to **update Cithak from alpha to beta version**, please copy all of your template first, or you will lost all of your saved template.
+
+## 📂 Installation
+
+To install Cithak CLI, your node.js version must higher than 10, then just type this line to your terminal
+
+```bash
+npm install -g cithak
+```
+
 ---
 
 ## 📃 Documentation
 
 - [Quick Start](#💡-Quick-Start)
 - [Docs](#📘-Docs)
-- [Contributing](https://github.com/KucingKode/Cithak/blob/main/CONTRIBUTING.md)
-- [License](#📃-License)
+- [Contributing](./CONTRIBUTING.md)
+- [License](./LICENSE.md)
 
 ## 💡 Quick Start
 
@@ -59,14 +59,14 @@ npm install -g cithak
 }
 ```
 
-- **Add new template**  
-  To add a template just go to your template and type `cth add [template-name]`
+- **Save new template**  
+  To save a template just go to your template and type `cth save [template-name]`
 
 - **Check your template**  
-  After you add your template just check your template by using `cth info [template-name]`, it should log your template name and it's description
+  After you save your template just check your template by using `cth info [template-name]`, it should log your template name and it's description
 
-- **Copy to your project**  
-  The last thing you want to do is just copy your template to your project by typing `cth copy [template-name]`.
+- **Clone to your project**  
+  The last thing you want to do is just clone your template to your project by typing `cth clone [template-name]`.
 
 Congratulation, now you know how to use Cithak CLI🎉
 
@@ -77,9 +77,24 @@ Congratulation, now you know how to use Cithak CLI🎉
 
 ### CLI
 
-Cithak can save template to your computer with `cth save`, clone stored template with `cth clone`, remove saved template with `cth remove` or update it with `cth update`, and merge templates with `cth merge`, you can clone or remove multiple templates by type `cth [command] my-template1 my-template2`.
+- Get Help: `cth help`
 
-**for more CLI information type `cth --help` in your terminal**
+- Save new template: `cth save [template-name]`
+
+- Clone a template:
+  `cth clone ...[template-names]`
+
+- Update saved template: `cth update [template-name]`
+
+- Get saved templates information: `cth info ...[template-name]`
+
+- Get saved templates list: `cth list`
+
+- Rename saved template: `cth rename [template-name] [new-template-name]`
+
+- Merge saved templates: `cth merge [template-name] ...[another-template-names]`
+
+**for more CLI information type `cth help` in your terminal**
 
 ### Template JSON
 
@@ -124,8 +139,8 @@ exclude is array of [glob](https://github.com/isaacs/node-glob#readme) string th
 
 ## 🎂 Contibuting
 
-If you interested in contributing to this project, please read our [CONTRIBUTING.md](https://github.com/KucingKode/Cithak/blob/main/CONTRIBUTING.md).
+If you interested in contributing to this project, please read our [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## 📃 License
 
-Cithak was published under MIT License.
+Cithak was published under [MIT License](./LICENSE.md).

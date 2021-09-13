@@ -1,6 +1,6 @@
 # Contributing To Cithak
 
-Cithak was a simple utility CLI to manage templates and was published under MIT license. It was written in Javascript (node.js) and use Airbnb style guidline for its style guidline.
+Cithak was a simple utility CLI to manage templates and was published under [MIT license](./LICENSE.md). It was written in Javascript (node.js) and use Airbnb style guidline for its style guidline.
 
 ---
 

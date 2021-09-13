@@ -1,5 +1,11 @@
 # Cithak Changelog
 
+## 1.1.0-beta
+
+- Add template `rename` feature
+- Support cloning and saving template from github, gitlab, and bitbucket repository
+- Remove unused dependencies
+
 ## 1.0.0-beta
 
 - Change help info

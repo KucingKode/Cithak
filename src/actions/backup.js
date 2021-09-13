@@ -1,25 +1,28 @@
 import chalk from 'chalk'
 import fs from 'fs-extra'
 
-import * as paths from '../constants/paths'
-import * as errors from '../constants/errors'
-import * as file from '../helpers/file'
+import * as pathHelper from '../helpers/path'
+import * as errorHelper from '../helpers/error'
+import * as fileHelper from '../helpers/file'
 
 const backupDataPath = (targetPath) =>
-  file.getTargetPath(targetPath, 'backup.json')
+  pathHelper.getTargetPath(targetPath, 'backup.json')
 
 export async function backup(options) {
   const { targetPath } = options
 
-  file.copyFolder(paths.STORAGE, file.getTargetPath(targetPath))
+  fileHelper.copyFolder(
+    pathHelper.STORAGE,
+    pathHelper.getTargetPath(targetPath)
+  )
 
-  const storageData = fs.readFileSync(paths.DATA_JSON).toString()
+  const storageData = fs.readFileSync(pathHelper.DATA_JSON).toString()
 
   fs.writeFileSync(
     backupDataPath(targetPath),
     storageData.replace(
-      RegExp(paths.STORAGE, 'g'),
-      file.getTargetPath(targetPath)
+      RegExp(pathHelper.STORAGE, 'g'),
+      pathHelper.getTargetPath(targetPath)
     )
   )
 
@@ -27,26 +30,34 @@ export async function backup(options) {
 }
 
 export async function load(options) {
-  const { targetPath } = options
-  if (!fs.existsSync(backupDataPath(targetPath))) {
-    errors.send(errors.NO_BACKUP_DATA)
-    return
-  }
+  try {
+    const { targetPath } = options
+    if (!fs.existsSync(backupDataPath(targetPath))) {
+      errorHelper.send(errorHelper.NO_BACKUP_DATA)
+      return
+    }
 
-  const backupData = fs.readJSONSync(backupDataPath(targetPath))
-  const storageData = fs.readJSONSync(paths.DATA_JSON)
+    const backupData = fs.readJSONSync(backupDataPath(targetPath))
+    const storageData = fs.readJSONSync(pathHelper.DATA_JSON)
 
-  Object.keys(backupData).forEach((key) => {
-    if (!fs.existsSync(backupData[key])) return
-    if (options.safe && storageData[key]) return
+    Object.keys(backupData).forEach((key) => {
+      if (!fs.existsSync(backupData[key])) return
+      if (options.safe && storageData[key]) return
 
-    file.copyFolder(backupData[key], file.getStorageTemplatePath(key), {
-      safe: options.safe,
-      join: !options.noJoin,
+      fileHelper.copyFolder(
+        backupData[key],
+        pathHelper.getStorageTemplatePath(key),
+        {
+          safe: options.safe,
+          join: !options.noJoin,
+        }
+      )
+      storageData[key] = pathHelper.getStorageTemplatePath(key)
     })
-    storageData[key] = file.getStorageTemplatePath(key)
-  })
 
-  fs.writeFileSync(paths.DATA_JSON, JSON.stringify(storageData))
-  console.log(chalk.green('SUCCESS!'), 'Backup loaded!')
+    fs.writeFileSync(pathHelper.DATA_JSON, JSON.stringify(storageData))
+    console.log(chalk.green('SUCCESS!'), 'Backup loaded!')
+  } catch (err) {
+    errorHelper.send(err)
+  }
 }

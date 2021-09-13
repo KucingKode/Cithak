@@ -1,8 +1,8 @@
 import arg from 'arg'
 import fs from 'fs-extra'
 
-import * as paths from './constants/paths'
-import * as errors from './constants/errors'
+import * as pathHelper from './helpers/path'
+import * as errorHelper from './helpers/error'
 
 // actions
 import { help as helpAction } from './actions/help'
@@ -14,6 +14,7 @@ import { clone as cloneAction } from './actions/clone'
 import { remove as removeAction } from './actions/remove'
 import { update as updateAction } from './actions/update'
 import { merge as mergeAction } from './actions/merge'
+import { rename as renameAction } from './actions/rename'
 
 import * as backupAction from './actions/backup'
 
@@ -29,6 +30,7 @@ const actions = {
   remove: removeAction,
   update: updateAction,
   merge: mergeAction,
+  rename: renameAction,
 
   // backup action
   backup: backupAction.backup,
@@ -74,7 +76,7 @@ function parseArgs(rawArgs) {
       changes: parseChanges(args['--change']),
     }
   } catch ({ message }) {
-    console.log(errors.format(message))
+    console.log(errorHelper.format(message))
     return { err: true }
   }
 }
@@ -86,22 +88,24 @@ function parseChanges(str) {
 }
 
 exports.cli = (args) => {
-  if (!fs.existsSync(paths.STORAGE)) {
+  if (!fs.existsSync(pathHelper.STORAGE)) {
     // setup
-    fs.mkdirSync(paths.STORAGE, { recursive: true })
-    fs.writeFileSync(paths.DATA_JSON, '{}')
+    fs.mkdirSync(pathHelper.STORAGE, { recursive: true })
+    fs.writeFileSync(pathHelper.DATA_JSON, '{}')
   }
+
+  pathHelper.state.cwd = process.cwd()
 
   const options = parseArgs(args)
   if (options.err) return
 
   if (options.needVersion) {
-    console.log(`v${fs.readJSONSync(paths.PACKAGE_JSON).version}`)
+    console.log(`v${fs.readJSONSync(pathHelper.PACKAGE_JSON).version}`)
   } else if (options.action === 'help' || options.needHelp) {
     actions.help(options)
   } else if (actions[options.action]) {
     actions[options.action](options)
   } else {
-    actions.help(options, errors.INVALID_ACTION)
+    actions.help(options, errorHelper.INVALID_ACTION)
   }
 }

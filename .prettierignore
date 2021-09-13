@@ -1,4 +1,4 @@
-src/constants/**/info.js
+src/helpers/info.js
 test/**/*
 rollup.config.js
 build
