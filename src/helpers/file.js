@@ -3,8 +3,7 @@ import glob from 'glob'
 import chalk from 'chalk'
 import { join } from 'path'
 
-import yaml from 'yaml'
-import toml from '@iarna/toml'
+import { joinables } from './join'
 
 // data getter
 export function getTemplateData(templatePath) {
@@ -50,54 +49,46 @@ export function copyFolder(src, dest, options = {}) {
       // it's a directory
       if (!fs.existsSync(destFile)) {
         fs.mkdirSync(destFile, { recursive: true })
-        console.log(chalk.gray(`copied folder ${file}`))
+        console.log(chalk.gray(`copied folder: ${file}`))
       }
     } else {
       // it's a file
       const joinable = fs.existsSync(destFile) && options.join
+      let joiner
 
-      if (
-        joinable &&
-        (file.endsWith('.json') || file.endsWith('.prettierrc'))
-      ) {
-        // join json
-        const srcData = fs.readJSONSync(srcFile)
-        const destData = fs.readJSONSync(destFile)
+      if (joinable) {
+        for (let i = 0; i < joinables.length; i += 1) {
+          const { extension } = joinables[i]
 
-        fs.writeFileSync(
-          destFile,
-          JSON.stringify(deepMerge(srcData, destData), null, 4)
+          if (srcFile.endsWith(extension)) {
+            joiner = joinables[i]
+            break
+          }
+        }
+      }
+
+      if (joinable && joiner) {
+        const result = joiner.joiner(
+          fs.readFileSync(srcFile).toString(),
+          fs.readFileSync(destFile).toString()
         )
-        console.log(chalk.gray(`joined ${file}`))
-      } else if (joinable && file.endsWith('.yaml')) {
-        // join yaml
-        const srcData = yaml.parse(fs.readFileSync(srcFile))
-        const destData = yaml.parse(fs.readFileSync(destFile))
 
-        fs.writeFileSync(destFile, yaml.stringify(deepMerge(srcData, destData)))
-        console.log(chalk.gray(`joined ${file}`))
-      } else if (joinable && file.endsWith('.toml')) {
-        // join toml
-        const srcData = toml.parse(fs.readFileSync(srcFile))
-        const destData = toml.parse(fs.readFileSync(destFile))
-
-        fs.writeFileSync(destFile, toml.stringify(deepMerge(srcData, destData)))
-        console.log(chalk.gray(`joined ${file}`))
-      } else if (
-        joinable &&
-        (file.endsWith('.env') ||
-          file.endsWith('.gitignore') ||
-          file.endsWith('.npmignore'))
-      ) {
-        // join .env
-        const srcData = fs.readFileSync(srcFile)
-        const destData = fs.readFileSync(destFile)
-
-        fs.writeFileSync(destFile, `${srcData}\n${destData}`)
-        console.log(chalk.gray(`joined ${file}`))
+        fs.writeFileSync(destFile, result)
+        console.log(chalk.gray(`joined ${joiner.extension}: ${file}`))
       } else {
+        let action = 'copied'
+
+        if (fs.existsSync(destFile)) {
+          if (options.safe) {
+            action = 'skipped'
+          } else {
+            action = 'replaced'
+          }
+        }
+
         fs.copySync(srcFile, destFile, { overwrite: !options.safe })
-        console.log(chalk.gray(`copied ${file}`))
+
+        console.log(chalk.gray(`${action}: ${file}`))
       }
     }
   })
@@ -116,34 +107,12 @@ export function removeFolder(src) {
 
     if (fs.lstatSync(srcFile).isDirectory()) {
       fs.rmdirSync(srcFile)
+      console.log(chalk.gray(`removed folder: ${file}`))
     } else {
       fs.rmSync(srcFile)
+      console.log(chalk.gray(`removed: ${file}`))
     }
-
-    console.log(chalk.gray(`removed ${file}`))
   })
 
   fs.rmdirSync(src)
-}
-
-function deepMerge(target, ...sources) {
-  function isObject(item) {
-    return item && typeof item === 'object' && !Array.isArray(item)
-  }
-
-  if (!sources.length) return target
-  const source = sources.shift()
-
-  if (isObject(target) && isObject(source)) {
-    Object.keys(source).forEach((key) => {
-      if (isObject(source[key])) {
-        if (!target[key]) Object.assign(target, { [key]: {} })
-        deepMerge(target[key], source[key])
-      } else {
-        Object.assign(target, { [key]: source[key] })
-      }
-    })
-  }
-
-  return deepMerge(target, ...sources)
 }

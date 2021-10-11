@@ -77,22 +77,35 @@ Congratulation, now you know how to use Cithak CLI🎉
 
 ### CLI
 
-- Get Help: `cth help`
+- Get Help:  
+  `cth help`
 
-- Save new template: `cth save [template-name]`
+- Save new template:  
+  `cth save [template-name]`
 
-- Clone a template:
+- Clone a template:  
   `cth clone ...[template-names]`
 
-- Update saved template: `cth update [template-name]`
+- Update saved template:  
+  `cth update [template-name]`
 
-- Get saved templates information: `cth info ...[template-name]`
+- Get saved templates information:  
+  `cth info ...[template-name]`
 
-- Get saved templates list: `cth list`
+- Get saved templates list:  
+  `cth list`
 
-- Rename saved template: `cth rename [template-name] [new-template-name]`
+- Rename saved template:  
+  `cth rename [template-name] [new-template-name]`
 
-- Merge saved templates: `cth merge [template-name] ...[another-template-names]`
+- Merge saved templates:  
+  `cth merge [template-name] ...[another-template-names]`
+
+- Backup all saved template:  
+  `cth backup`
+
+- Load template backup:  
+  `cth load`
 
 **for more CLI information type `cth help` in your terminal**
 

@@ -55,6 +55,8 @@ function parseArgs(rawArgs) {
         '-v': '--version',
         '-c': '--change',
         '-p': '--path',
+        '--nj': '--no-join',
+        '--ne': '--no-exec',
       },
       {
         argv: rawArgs.slice(2),

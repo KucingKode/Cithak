@@ -18,12 +18,12 @@ export const TEMPLATE_NOT_FOUND = new Error(
 )
 export const GIT_NOT_FOUND = new Error('This action need to executed git!')
 export const INVALID_TEMPLATE_NAME = new Error(
-  'A template name cannot started with "github@" "gitlab@" or "bitbucket@"'
+  'A template name cannot be "_temp" or started with "github@" "gitlab@" or "bitbucket@"'
 )
 
 export const format = (message) => `${chalk.red.bold('ERR!')} ${message}`
 
-export const send = (err, params) => {
+export const send = (err, params = {}) => {
   let { message } = err
 
   Object.keys(params).forEach((key) => {

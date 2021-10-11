@@ -1,5 +1,12 @@
 # Cithak Changelog
 
+## 1.3.0-beta
+
+- Add more joinable file
+- Fix update command bug
+- Change template folder from `CthTemp` to `_temp`
+- Improve log
+
 ## 1.2.0-beta
 
 - Simplify error message

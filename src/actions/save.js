@@ -33,7 +33,10 @@ export async function save(options) {
     return
   }
 
-  if (gitHelper.gitRepoRegex.test(options.templateName)) {
+  if (
+    gitHelper.gitRepoRegex.test(options.templateName) ||
+    (options.templateName === '_temp' && !options.fromSys)
+  ) {
     errorHelper.send(errorHelper.INVALID_TEMPLATE_NAME)
     return
   }
@@ -87,6 +90,6 @@ export async function save(options) {
 
   console.log(
     chalk.green('SUCCESS!'),
-    `Template ${options.templateName} saved!`
+    `Template ${options.templateName} saved to storage!`
   )
 }

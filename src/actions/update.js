@@ -7,6 +7,8 @@ import * as errorHelper from '../helpers/error'
 import * as fileHelper from '../helpers/file'
 
 export async function update(options) {
+  options.templateName = options.templateNames[0]
+
   const templatePath = pathHelper.getTargetPath(options.targetPath)
   if (!fs.existsSync(templatePath)) return
 

@@ -29,13 +29,15 @@ export async function clone(options, i = 0) {
 }
 
 async function cloneGit(options) {
+  const tempFileName = '_temp'
   await save({
     ...options,
-    templateNames: ['CthTemp'],
+    fromSys: true,
+    templateNames: [tempFileName],
     targetPath: options.templateName,
   })
-  await cloneTemplate({ ...options, templateName: 'CthTemp' })
-  await remove({ ...options, templateNames: ['CthTemp'] })
+  await cloneTemplate({ ...options, templateName: tempFileName })
+  await remove({ ...options, templateNames: [tempFileName] })
 }
 
 async function cloneTemplate(options) {
@@ -72,7 +74,7 @@ async function cloneTemplate(options) {
 
   console.log(
     chalk.green('SUCCESS!'),
-    `Template ${options.templateName} cloned!`
+    `Template ${options.templateName} cloned to ${projectPath}!`
   )
 }
 

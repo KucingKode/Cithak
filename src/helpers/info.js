@@ -62,13 +62,13 @@ export const flags = `
    |     ${chalk.yellow('-p, --path')} : add extra path relative to current working directory or a git repo
    |     ${chalk.gray('( ex: -p ./my-folder or -p github@username/repo )')}
 
-   |     ${chalk.yellow('-y, --yes')} : exxecute all template tasks
+   |     ${chalk.yellow('-y, --yes')} : execute all template tasks
    |     ${chalk.yellow('-s, --safe')} : copy template without replacing existing files
    |     ${chalk.yellow('-c, --change')} : change file that will be executed
    |     ${chalk.gray('( ex: \'npm|pnpm\' ) : npm i package -> pnpm i package')}
 
-   |     ${chalk.yellow('--no-join')} : copy template without join joinable data file like json file
-   |     ${chalk.yellow('--no-exec')} : copy template without execute any tasks
+   |     ${chalk.yellow('--nj, --no-join')} : copy template without join joinable data file like json file
+   |     ${chalk.yellow('--ne, --no-exec')} : copy template without execute any tasks
 `
 
 export const complete =
