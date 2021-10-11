@@ -27,7 +27,8 @@ async function logInfo(options) {
       fileHelper.getTemplateData(templatePath).description || ''
 
     console.log(
-      `${chalk.magenta(options.templateName)}\n${templateDescription}\n`
+      `${chalk.magenta(options.templateName)} (${chalk.gray(templatePath)})` +
+        `\n${templateDescription}\n`
     )
   } catch (err) {
     errorHelper.send(err)

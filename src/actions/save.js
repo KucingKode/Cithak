@@ -85,5 +85,8 @@ export async function save(options) {
   storageData[options.templateName] = storageTemplatePath
   fs.writeFileSync(pathHelper.DATA_JSON, JSON.stringify(storageData))
 
-  console.log(chalk.green('SUCCESS!'), `Template saved!`)
+  console.log(
+    chalk.green('SUCCESS!'),
+    `Template ${options.templateName} saved!`
+  )
 }

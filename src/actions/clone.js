@@ -70,7 +70,10 @@ async function cloneTemplate(options) {
     await executeTasks(templateData.tasks, projectPath, options)
   }
 
-  console.log(chalk.green('SUCCESS!'), `Template cloned!`)
+  console.log(
+    chalk.green('SUCCESS!'),
+    `Template ${options.templateName} cloned!`
+  )
 }
 
 async function executeTasks(tasks, cwd, options) {

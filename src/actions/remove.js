@@ -35,5 +35,8 @@ async function removeTemplate(options) {
   // rewrite storage data
   fs.writeFileSync(pathHelper.DATA_JSON, JSON.stringify(storageData))
 
-  console.log(chalk.green('SUCCESS!'), `Template removed from storage!`)
+  console.log(
+    chalk.green('SUCCESS!'),
+    `Template ${options.templateName} removed from storage!`
+  )
 }

@@ -89,7 +89,6 @@ function parseChanges(str) {
 
 exports.cli = (args) => {
   if (!fs.existsSync(pathHelper.STORAGE)) {
-    // setup
     fs.mkdirSync(pathHelper.STORAGE, { recursive: true })
     fs.writeFileSync(pathHelper.DATA_JSON, '{}')
   }

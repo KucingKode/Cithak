@@ -6,7 +6,7 @@ import * as pathHelper from '../helpers/path'
 import * as errorHelper from '../helpers/error'
 
 export async function rename(options) {
-  let config = {
+  options = {
     ...options,
     templateName: options.templateNames[0],
     newTemplateName: options.templateNames[1],
@@ -15,64 +15,64 @@ export async function rename(options) {
   const storageData = fs.readJSONSync(pathHelper.DATA_JSON)
 
   // prompt question if no template name
-  config = Object.assign(
-    config,
+  options = Object.assign(
+    options,
     await inquirer.prompt([
       {
         type: 'input',
         name: 'templateName',
-        when: !config.templateName,
+        when: !options.templateName,
         message: 'Please enter template name',
       },
     ])
   )
 
-  if (!config.templateName) {
+  if (!options.templateName) {
     errorHelper.send(errorHelper.NO_TEMPLATE_NAME)
     return
   }
 
-  if (!storageData[config.templateName]) {
+  if (!storageData[options.templateName]) {
     errorHelper.send(errorHelper.TEMPLATE_NOT_FOUND, {
-      name: config.templateName,
+      name: options.templateName,
     })
     return
   }
 
   // prompt question if no new template name
-  config = Object.assign(
-    config,
+  options = Object.assign(
+    options,
     await inquirer.prompt([
       {
         type: 'input',
         name: 'newTemplateName',
-        when: !config.newTemplateName,
+        when: !options.newTemplateName,
         message: 'Please enter new template name',
       },
     ])
   )
 
-  if (!config.newTemplateName) {
+  if (!options.newTemplateName) {
     errorHelper.send(errorHelper.NO_TEMPLATE_NAME)
     return
   }
 
-  if (storageData[config.newTemplateName]) {
+  if (storageData[options.newTemplateName]) {
     errorHelper.send(errorHelper.TEMPLATE_EXIST, {
-      name: config.newTemplateName,
+      name: options.newTemplateName,
     })
     return
   }
 
-  const templatePath = storageData[config.templateName]
+  const templatePath = storageData[options.templateName]
   const newTemplatePath = pathHelper.getStorageTemplatePath(
-    config.newTemplateName
+    options.newTemplateName
   )
 
   try {
     fs.renameSync(templatePath, newTemplatePath)
-    delete storageData[config.templateName]
-    storageData[config.newTemplateName] = newTemplatePath
+    delete storageData[options.templateName]
+    storageData[options.newTemplateName] = newTemplatePath
   } catch (err) {
     console.log(chalk.red('ERR!'), err)
     return
@@ -80,5 +80,8 @@ export async function rename(options) {
 
   fs.writeFileSync(pathHelper.DATA_JSON, JSON.stringify(storageData))
 
-  console.log(chalk.green('SUCCESS!'), `Template saved!`)
+  console.log(
+    chalk.green('SUCCESS!'),
+    `Template ${options.templateName} renamed to ${options.newTemplateName}!`
+  )
 }

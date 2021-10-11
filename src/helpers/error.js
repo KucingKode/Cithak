@@ -30,6 +30,5 @@ export const send = (err, params) => {
     message = message.replace(`$${key}`, params[key] || '')
   })
 
-  console.log(format(message))
-  throw err
+  console.error(format(message))
 }

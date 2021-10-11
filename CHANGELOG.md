@@ -1,5 +1,10 @@
 # Cithak Changelog
 
+## 1.2.0-beta
+
+- Simplify error message
+- Improve log
+
 ## 1.1.0-beta
 
 - Add template `rename` feature

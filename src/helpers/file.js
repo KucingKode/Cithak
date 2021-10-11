@@ -45,14 +45,12 @@ export function copyFolder(src, dest, options = {}) {
   Object.keys(files).forEach((file) => {
     const srcFile = join(src, file)
     const destFile = join(dest, file.replace(/(?:\.{2}\/?)*/, ''))
-    let success = true
 
     if (fs.lstatSync(srcFile).isDirectory()) {
       // it's a directory
       if (!fs.existsSync(destFile)) {
         fs.mkdirSync(destFile, { recursive: true })
-      } else {
-        success = false
+        console.log(chalk.gray(`copied folder ${file}`))
       }
     } else {
       // it's a file
@@ -70,18 +68,21 @@ export function copyFolder(src, dest, options = {}) {
           destFile,
           JSON.stringify(deepMerge(srcData, destData), null, 4)
         )
+        console.log(chalk.gray(`joined ${file}`))
       } else if (joinable && file.endsWith('.yaml')) {
         // join yaml
         const srcData = yaml.parse(fs.readFileSync(srcFile))
         const destData = yaml.parse(fs.readFileSync(destFile))
 
         fs.writeFileSync(destFile, yaml.stringify(deepMerge(srcData, destData)))
+        console.log(chalk.gray(`joined ${file}`))
       } else if (joinable && file.endsWith('.toml')) {
         // join toml
         const srcData = toml.parse(fs.readFileSync(srcFile))
         const destData = toml.parse(fs.readFileSync(destFile))
 
         fs.writeFileSync(destFile, toml.stringify(deepMerge(srcData, destData)))
+        console.log(chalk.gray(`joined ${file}`))
       } else if (
         joinable &&
         (file.endsWith('.env') ||
@@ -93,12 +94,12 @@ export function copyFolder(src, dest, options = {}) {
         const destData = fs.readFileSync(destFile)
 
         fs.writeFileSync(destFile, `${srcData}\n${destData}`)
+        console.log(chalk.gray(`joined ${file}`))
       } else {
         fs.copySync(srcFile, destFile, { overwrite: !options.safe })
+        console.log(chalk.gray(`copied ${file}`))
       }
     }
-
-    if (success) console.log(chalk.gray(`copied ${file}`))
   })
 }
 

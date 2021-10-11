@@ -47,5 +47,8 @@ export async function update(options) {
     exclude: templateData.exclude,
   })
 
-  console.log(chalk.green('SUCCESS!'), `Template updated!`)
+  console.log(
+    chalk.green('SUCCESS!'),
+    `Template ${options.templateName} updated!`
+  )
 }
