@@ -6,7 +6,10 @@
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
     "publish": "npm run build",
-    "dev": "rollup -cw"
+    "dev": "rollup -cw",
+    "build-ubuntu-latest": "pkg -t linux ./cithak.js -o ./build/bin/cithak",
+    "build-windows-latest": "pkg -t win ./cithak.js -o ./build/bin/cithak",
+    "build-macos-latest": "pkg -t mac ./cithak.js -o ./build/bin/cithak"
   },
   "bin": {
     "cithak": "bin/cithak",
