@@ -1,5 +1,9 @@
 # Cithak Changelog
 
+## 1.3.1-beta
+
+- Fix executable error
+
 ## 1.3.0-beta
 
 - Add more joinable file

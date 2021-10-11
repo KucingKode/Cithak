@@ -1,1 +1,3 @@
-require('./build/file/cithak').cli(process.argv)
+const { cli } = require('./build/file/cithak')
+
+cli(process.argv)
