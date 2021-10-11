@@ -6,8 +6,10 @@ cithak.js
 src
 docs
 test
+images
 build/bin
 CHANGELOG.md
+README.md
 CONTRIBUTING.md
 .prettierignore
 .prettierrc

@@ -33,11 +33,15 @@ If you want to **update Cithak from alpha to beta version**, please copy all of 
 
 ## 📂 Installation
 
-To install Cithak CLI, your node.js version must higher than 10, then just type this line to your terminal
+- Node.js
 
 ```bash
 npm install -g cithak
 ```
+
+- Windows, Linux, Mac
+
+To use Cithak on Windows, Linux, or Mac without node js, download the latest executable for your operating system from [releases](https://github.com/KucingKode/Cithak/releases)
 
 ---
 
@@ -77,35 +81,7 @@ Congratulation, now you know how to use Cithak CLI🎉
 
 ### CLI
 
-- Get Help:  
-  `cth help`
-
-- Save new template:  
-  `cth save [template-name]`
-
-- Clone a template:  
-  `cth clone ...[template-names]`
-
-- Update saved template:  
-  `cth update [template-name]`
-
-- Get saved templates information:  
-  `cth info ...[template-name]`
-
-- Get saved templates list:  
-  `cth list`
-
-- Rename saved template:  
-  `cth rename [template-name] [new-template-name]`
-
-- Merge saved templates:  
-  `cth merge [template-name] ...[another-template-names]`
-
-- Backup all saved template:  
-  `cth backup`
-
-- Load template backup:  
-  `cth load`
+![information](./images/help.png)
 
 **for more CLI information type `cth help` in your terminal**
 

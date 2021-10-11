@@ -27,4 +27,4 @@ jobs:
         with:
           files: build/bin/cithak*
           draft: true
-          tag_name: v${{ env.GITHUB_SHA }}
+          tag_name: release-${{ github.sha }}
