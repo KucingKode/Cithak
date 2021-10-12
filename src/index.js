@@ -1,5 +1,6 @@
 import arg from 'arg'
 import fs from 'fs-extra'
+import pkg from '../package.json'
 
 import * as pathHelper from './helpers/path'
 import * as errorHelper from './helpers/error'
@@ -101,7 +102,7 @@ exports.cli = (args) => {
   if (options.err) return
 
   if (options.needVersion) {
-    console.log(`v${fs.readJSONSync(pathHelper.PACKAGE_JSON).version}`)
+    console.log(`v${pkg.version}`)
   } else if (options.action === 'help' || options.needHelp) {
     actions.help(options)
   } else if (actions[options.action]) {

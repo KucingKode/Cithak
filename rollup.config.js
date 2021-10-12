@@ -1,4 +1,5 @@
 import eslint from '@rollup/plugin-eslint'
+import json from '@rollup/plugin-json'
 import { terser } from 'rollup-plugin-terser'
 
 const production = process.env.NODE_ENV === 'production'
@@ -18,6 +19,7 @@ const config = {
     'shelljs'
   ],
   plugins: [
+    json(),
     eslint(),
     production && terser()
   ],

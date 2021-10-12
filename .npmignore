@@ -8,8 +8,8 @@ docs
 test
 images
 build/bin
+scripts
 CHANGELOG.md
-README.md
 CONTRIBUTING.md
 .prettierignore
 .prettierrc

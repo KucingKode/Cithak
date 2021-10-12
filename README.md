@@ -1,6 +1,6 @@
 # Cithak
 
-![icon](./icon.svg)
+![icon](./images/icon.svg)
 
 ---
 

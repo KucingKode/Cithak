@@ -1,8 +1,7 @@
 import chalk from 'chalk'
-import fs from 'fs-extra'
-import * as paths from './path'
+import pkg from '../../package.json'
 
-const VERSION = fs.readJSONSync(paths.PACKAGE_JSON).version
+const VERSION = pkg.version
 
 export const stuck = `
    ${chalk.blue.bold('INFO!')} For more info please type ${chalk.yellow('cth --help')}
