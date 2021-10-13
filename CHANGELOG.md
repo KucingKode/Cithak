@@ -1,5 +1,14 @@
 # Cithak Changelog
 
+## 1.3.3-beta
+
+- create joinable file filter to not case sensitive
+- remove `.md` file, add `readme.md, readme.markdown, *.yml`
+
+## 1.3.2-beta
+
+- change executable icon and fix release action
+
 ## 1.3.1-beta
 
 - Fix executable error
