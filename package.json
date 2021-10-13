@@ -1,6 +1,6 @@
 {
   "name": "cithak",
-  "version": "1.3.2-beta",
+  "version": "1.3.3-beta",
   "description": "Simple, Secure yet Powerful template manager",
   "main": "build/file/cithak.js",
   "scripts": {

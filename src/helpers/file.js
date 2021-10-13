@@ -60,7 +60,7 @@ export function copyFolder(src, dest, options = {}) {
         for (let i = 0; i < joinables.length; i += 1) {
           const { extension } = joinables[i]
 
-          if (srcFile.endsWith(extension)) {
+          if (srcFile.toLowerCase().endsWith(extension)) {
             joiner = joinables[i]
             break
           }
