@@ -50,6 +50,7 @@ To use Cithak on Windows, Linux, or Mac without node js, download the latest exe
 - [Quick Start](#💡-Quick-Start)
 - [Docs](#📘-Docs)
 - [Contributing](./CONTRIBUTING.md)
+- [Code Of Conduct](./CODE_OF_CONDUCT.md)
 - [License](./LICENSE.md)
 
 ## 💡 Quick Start
