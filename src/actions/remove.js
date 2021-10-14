@@ -29,7 +29,10 @@ async function removeTemplate(options) {
   }
 
   // delete template folder from storage
-  fileHelper.removeFolder(templatePath)
+  fileHelper.removeFolder(templatePath, {
+    index: options.index,
+    silent: options.silent,
+  })
   delete storageData[options.templateName]
 
   // rewrite storage data

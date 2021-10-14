@@ -2,19 +2,20 @@ import YAML from 'yaml'
 import TOML from '@iarna/toml'
 
 export const joinables = [
-  createJoinable('.json', joinJson),
-  createJoinable('.prettierrc', joinJson),
-  createJoinable('.yaml', joinYaml),
-  createJoinable('.yml', joinYaml),
-  createJoinable('.toml', joinToml),
-  createJoinable('.env', joinText),
-  createJoinable('.gitignore', joinText),
-  createJoinable('.prettierignore', joinText),
-  createJoinable('.npmignore', joinText),
-  createJoinable('readme.md', joinTextNeat),
-  createJoinable('readme.markdown', joinTextNeat),
-  createJoinable('.txt', joinTextNeat),
-  createJoinable('.rest', joinTextNeat),
+  ['.json', joinJson],
+  ['.prettierrc', joinJson],
+  ['.yaml', joinYaml],
+  ['.yml', joinYaml],
+  ['.toml', joinToml],
+  ['.env', joinText],
+  ['.gitignore', joinText],
+  ['.prettierignore', joinText],
+  ['.npmignore', joinText],
+  ['readme.md', joinTextNeat],
+  ['readme.markdown', joinTextNeat],
+  ['readme.txt', joinTextNeat],
+  ['readme', joinTextNeat],
+  ['.rest', joinTextNeat],
 ]
 
 function joinJson(str1, str2) {
@@ -65,8 +66,4 @@ function deepMerge(target, ...sources) {
   }
 
   return deepMerge(target, ...sources)
-}
-
-function createJoinable(extension, joiner) {
-  return { extension, joiner }
 }

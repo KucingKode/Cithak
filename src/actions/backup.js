@@ -13,7 +13,11 @@ export async function backup(options) {
 
   fileHelper.copyFolder(
     pathHelper.STORAGE,
-    pathHelper.getTargetPath(targetPath)
+    pathHelper.getTargetPath(targetPath),
+    {
+      index: options.index,
+      silent: options.silent,
+    }
   )
 
   const storageData = fs.readFileSync(pathHelper.DATA_JSON).toString()
@@ -50,6 +54,8 @@ export async function load(options) {
         {
           safe: options.safe,
           join: !options.noJoin,
+          index: options.index,
+          silent: options.silent,
         }
       )
       storageData[key] = pathHelper.getStorageTemplatePath(key)

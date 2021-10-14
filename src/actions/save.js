@@ -78,6 +78,8 @@ export async function save(options) {
       fileHelper.copyFolder(templatePath, storageTemplatePath, {
         include: templateData.include,
         exclude: templateData.exclude,
+        index: options.index,
+        silent: options.silent,
       })
     } catch (err) {
       console.log(chalk.red('ERR!'), err)

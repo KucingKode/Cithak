@@ -1,5 +1,12 @@
 # Cithak Changelog
 
+## 1.0.0
+
+- Add silent flag
+- Add tips
+- Add index prefer flag
+- Fix setIcon script
+
 ## 1.3.3-beta
 
 - create joinable file filter to not case sensitive

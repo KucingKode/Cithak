@@ -4,6 +4,7 @@ import pkg from '../package.json'
 
 import * as pathHelper from './helpers/path'
 import * as errorHelper from './helpers/error'
+import { sendTips } from './helpers/tips'
 
 // actions
 import { help as helpAction } from './actions/help'
@@ -50,6 +51,8 @@ function parseArgs(rawArgs) {
         '--no-join': Boolean,
         '--no-exec': Boolean,
         '--path': String,
+        '--index': Boolean,
+        '--silent': Boolean,
         '-y': '--yes',
         '-s': '--safe',
         '-h': '--help',
@@ -58,6 +61,8 @@ function parseArgs(rawArgs) {
         '-p': '--path',
         '--nj': '--no-join',
         '--ne': '--no-exec',
+        '-i': '--index',
+        '--sl': '--silent',
       },
       {
         argv: rawArgs.slice(2),
@@ -75,6 +80,8 @@ function parseArgs(rawArgs) {
       safe: args['--safe'],
       noJoin: args['--no-join'],
       noExec: args['--no-exec'],
+      index: args['--index'],
+      silent: args['--silent'],
 
       changes: parseChanges(args['--change']),
     }
@@ -90,7 +97,7 @@ function parseChanges(str) {
     : []
 }
 
-exports.cli = (args) => {
+exports.cli = async (args) => {
   if (!fs.existsSync(pathHelper.STORAGE)) {
     fs.mkdirSync(pathHelper.STORAGE, { recursive: true })
     fs.writeFileSync(pathHelper.DATA_JSON, '{}')
@@ -102,12 +109,14 @@ exports.cli = (args) => {
   if (options.err) return
 
   if (options.needVersion) {
-    console.log(`v${pkg.version}`)
+    await console.log(`v${pkg.version}`)
   } else if (options.action === 'help' || options.needHelp) {
-    actions.help(options)
+    await actions.help(options)
   } else if (actions[options.action]) {
-    actions[options.action](options)
+    await actions[options.action](options)
   } else {
-    actions.help(options, errorHelper.INVALID_ACTION)
+    await actions.help(options, errorHelper.INVALID_ACTION)
   }
+
+  sendTips()
 }

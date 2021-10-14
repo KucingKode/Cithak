@@ -43,13 +43,13 @@ export function copyFolder(src, dest, options = {}) {
 
   Object.keys(files).forEach((file) => {
     const srcFile = join(src, file)
-    const destFile = join(dest, file.replace(/(?:\.{2}\/?)*/, ''))
+    let destFile = join(dest, file.replace(/(?:\.{2}\/?)*/, ''))
 
     if (fs.lstatSync(srcFile).isDirectory()) {
       // it's a directory
       if (!fs.existsSync(destFile)) {
         fs.mkdirSync(destFile, { recursive: true })
-        console.log(chalk.gray(`copied folder: ${file}`))
+        !options.silent && console.log(chalk.gray(`copied folder: ${file}`))
       }
     } else {
       // it's a file
@@ -58,23 +58,27 @@ export function copyFolder(src, dest, options = {}) {
 
       if (joinable) {
         for (let i = 0; i < joinables.length; i += 1) {
-          const { extension } = joinables[i]
+          const [extension, func] = joinables[i]
 
           if (srcFile.toLowerCase().endsWith(extension)) {
-            joiner = joinables[i]
+            joiner = {
+              extension,
+              func,
+            }
             break
           }
         }
       }
 
       if (joinable && joiner) {
-        const result = joiner.joiner(
+        const result = joiner.func(
           fs.readFileSync(srcFile).toString(),
           fs.readFileSync(destFile).toString()
         )
 
         fs.writeFileSync(destFile, result)
-        console.log(chalk.gray(`joined ${joiner.extension}: ${file}`))
+        !options.silent &&
+          console.log(chalk.gray(`joined ${joiner.extension}: ${file}`))
       } else {
         let action = 'copied'
 
@@ -84,17 +88,23 @@ export function copyFolder(src, dest, options = {}) {
           } else {
             action = 'replaced'
           }
+
+          if (options.index) {
+            const [newDestFile, i] = findIndex(destFile)
+            destFile = newDestFile
+            action = `copied as ${file} (${i})`
+          }
         }
 
         fs.copySync(srcFile, destFile, { overwrite: !options.safe })
 
-        console.log(chalk.gray(`${action}: ${file}`))
+        !options.silent && console.log(chalk.gray(`${action}: ${file}`))
       }
     }
   })
 }
 
-export function removeFolder(src) {
+export function removeFolder(src, options = {}) {
   const files = glob
     .sync('**/*', {
       dot: true,
@@ -107,12 +117,24 @@ export function removeFolder(src) {
 
     if (fs.lstatSync(srcFile).isDirectory()) {
       fs.rmdirSync(srcFile)
-      console.log(chalk.gray(`removed folder: ${file}`))
+      !options.silent && console.log(chalk.gray(`removed folder: ${file}`))
     } else {
       fs.rmSync(srcFile)
-      console.log(chalk.gray(`removed: ${file}`))
+      !options.silent && console.log(chalk.gray(`removed: ${file}`))
     }
   })
 
   fs.rmdirSync(src)
+}
+
+function findIndex(fileName) {
+  // return fileName -> fileName (1)
+  // used if options.index used
+
+  let i = 1
+  while (fs.existsSync(`${fileName} (${i})`)) {
+    i += 1
+  }
+
+  return [`${fileName} (${i})`, i]
 }

@@ -62,6 +62,8 @@ async function cloneTemplate(options) {
     fileHelper.copyFolder(storageTemplatePath, projectPath, {
       safe: options.safe,
       join: !options.noJoin,
+      index: options.index,
+      silent: options.silent,
     })
   } catch (err) {
     console.log(chalk.red('ERR!'), err)

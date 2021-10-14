@@ -77,14 +77,28 @@ Congratulation, now you know how to use Cithak CLI🎉
 
 ## 📘 Docs
 
-- [CLI](#CLI)
-- [Template JSON](#Template-JSON)
+- [CLI](#cli)
+- [Joinable Fi;es](#joinable-files)
+- [Template JSON](#template-json)
 
 ### CLI
 
 ![information](./images/help.png)
 
 **for more CLI information type `cth help` in your terminal**
+
+### Joinable Files
+
+- YAML | \*.yml, \*.yaml
+- TOML | \*.toml
+- JSON | \*.json
+- README | README.\[md, txt, markdown\]
+- ENV | .env
+- REST | \*.rest
+- .prettierrc
+- .gitignore
+- .npmignore
+- .prettierignore
 
 ### Template JSON
 

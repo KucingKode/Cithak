@@ -47,6 +47,8 @@ export async function update(options) {
   fileHelper.copyFolder(templatePath, storageTemplatePath, {
     include: templateData.include,
     exclude: templateData.exclude,
+    index: options.index,
+    silent: options.silent,
   })
 
   console.log(

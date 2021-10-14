@@ -1,4 +1,5 @@
 const resourceHacker = require('node-resourcehacker')
+const path = require('path')
 
 // Use the beta release of Resource Hacker.
 process.env.SOURCE_RESOURCE_HACKER =
@@ -7,9 +8,9 @@ process.env.SOURCE_RESOURCE_HACKER =
 resourceHacker(
   {
     operation: 'addoverwrite',
-    input: '../build/bin/cithak-win.exe',
-    output: '../build/bin/cithak-win.exe',
-    resource: '../icon.ico',
+    input: path.join(__dirname, '../build/bin/cithak-win.exe'),
+    output: path.join(__dirname, '../build/bin/cithak-win.exe'),
+    resource: path.join(__dirname, '../icon.ico'),
     resourceType: 'ICONGROUP',
     resourceName: '1',
   },
