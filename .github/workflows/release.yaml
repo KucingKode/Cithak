@@ -1,5 +1,5 @@
 name: Release
-on: [push]
+on: workflow_dispatch
 
 jobs:
   bundle-javascript-file:
