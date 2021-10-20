@@ -1,0 +1,19 @@
+{
+  "main": ".eleventy.js",
+  "scripts": {
+    "dev": "slinkity --serve",
+    "build": "slinkity"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^1.0.0-canary.41",
+    "sass": "^1.43.2",
+    "slinkity": "^0.1.10"
+  }
+}

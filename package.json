@@ -1,12 +1,14 @@
 {
   "name": "cithak",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple, Secure yet Powerful template manager",
   "main": "build/file/cithak.js",
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
     "prepublishOnly": "npm run build",
     "dev": "rollup -cw",
+    "deploy": "npm run build-docs && node ./scripts/deploy.js",
+    "build-docs": "cd ./docs && npm run build",
     "build-ubuntu-latest": "pkg -t linux -o ./build/bin/cithak-linux ./cithak.js",
     "build-windows-latest": "pkg -t win -o ./build/bin/cithak-win ./cithak.js",
     "build-macos-latest": "pkg -t mac -o ./build/bin/cithak-mac ./cithak.js"
@@ -22,6 +24,7 @@
     "type": "git",
     "url": "https://github.com/KucingKode/Cithak.git"
   },
+  "homepage": "https://KucingKode.github.io/Cithak",
   "bugs": {
     "url": "https://github.com/KucingKode/Cithak/issues"
   },
@@ -58,6 +61,7 @@
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "gh-pages": "^3.2.3",
     "prettier": "^2.3.2",
     "rollup": "^2.56.3",
     "rollup-plugin-terser": "^7.0.2"

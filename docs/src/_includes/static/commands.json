@@ -1,0 +1,50 @@
+[
+  ["help command", "cth help"],
+  ["help flag", "cth [command-name] --help"],
+  ["get version command", "cth --version"],
+
+  ["clone template", "cth clone [...template-name]"],
+  ["save template", "cth save [template-name]"],
+  ["update template", "cth update [template-name]"],
+  ["get template list", "cth list [template-name]"],
+  ["get template information", "cth info [...template-name]"],
+  ["remove template", "cth remove [...template-name]"],
+  ["merge template", "cth merge [...template-name]"],
+  ["rename template", "cth rename [template-name] [new-template-name]"],
+
+  ["backup template", "cth backup"],
+  ["load backup template", "cth load"],
+
+  ["silent cithak", "cth [command] --silent"],
+  ["extra path", "cth [command] --path [path/to/directory]"],
+  [
+    "clone with change tasks executed file",
+    "cth clone [template-name] --change '[file]|[new-file],[...]'"
+  ],
+
+  ["clone with no join", "cth clone [...template-name] --no-join"],
+  ["clone with no execute task", "cth clone [...template-name] --no-exec"],
+  ["clone with execute all task", "cth clone [...template-name] --yes"],
+  [
+    "clone with prefer index and not overwrite",
+    "cth clone [template-name] --index"
+  ],
+  ["clone with no overwrite", "cth clone [template-name] --safe"],
+
+  ["clone github template", "cth clone github@[user]/[repo]"],
+  ["clone gitlab template", "cth clone gitlab@[user]/[repo]"],
+  ["clone bitbucket template", "cth clone bitbcket@[user]/[repo]"],
+
+  [
+    "save github template",
+    "cth save [template-name] --path github@[user]/[repo]"
+  ],
+  [
+    "save gitlab template",
+    "cth save [template-name] --path gitlab@[user]/[repo]"
+  ],
+  [
+    "save bitbucket template",
+    "cth save [template-name] --path bitbcket@[user]/[repo]"
+  ]
+]

@@ -1,0 +1,76 @@
+#commands .command-box {
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  padding: 1em 2em;
+  margin: 1em;
+  border-radius: 20px;
+  display: flex;
+  cursor: pointer;
+
+  * {
+    pointer-events: none;
+    font-family: 'Fira Code', monospace;
+  }
+
+  p.type {
+    position: relative;
+    top: -1.8rem;
+    font-weight: bold;
+  }
+
+  p.command {
+    margin-top: -1.4em;
+  }
+
+  i {
+    opacity: 0;
+    margin-left: 1rem;
+  }
+  i.check {
+    display: none;
+  }
+  
+  &.clicked i.copy {
+    display: none;
+  }
+  &.clicked i.check {
+    display: inline;
+  }
+  
+  &:hover i {
+    opacity: 1;
+  }
+}
+
+
+
+
+
+.input {
+  width: 85%;
+  margin-left: 1em;
+  padding: 1em 2em;
+  border-radius: 20px;
+  border: var(--border-color) 3px solid;
+  outline: none;
+  transition: 0.1s ease;
+  background-color: var(--bg-color);
+
+  &:focus,
+  &:focus-within,
+  &:focus-visible {
+    outline: var(--outline-color) 3px solid;
+  }
+  
+  &::placeholder,
+  &::-moz-placeholder,
+  &::-webkit-input-placeholder {
+    color: var(--disabled-color);
+  }
+
+  @media (min-width: 992px) {
+    width: 50%;
+    margin-left: 4em;
+  }
+}
+

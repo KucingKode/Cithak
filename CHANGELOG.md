@@ -1,5 +1,12 @@
 # Cithak Changelog
 
+## 1.0.1
+
+- Change README.md
+- Add homepage made with slinkity and 11ty
+- Update release github action
+- Add docs deploy script
+
 ## 1.0.0
 
 - Add silent flag

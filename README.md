@@ -4,10 +4,15 @@
 
 ---
 
+[![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com)
 [![badge](https://img.shields.io/github/license/KucingKode/Cithak)](./LICENSE.md)
 [![badge](https://img.shields.io/github/last-commit/KucingKode/Cithak)](https://github.com/KucingKode/Cithak)
 [![badge](https://img.shields.io/github/package-json/v/KucingKode/Cithak)](https://www.npmjs.com/package/cithak)
 [![badge](https://img.shields.io/npm/dw/cithak)](https://www.npmjs.com/package/cithak)
+
+[![GitHub stars](https://img.shields.io/github/stars/KucingKode/Cithak.svg?style=social&label=Star&maxAge=2592000)](https://GitHub.com/KucingKode/Cithak/stargazers/)
+
+Homepage: <https://KucingKode.github.io/Cithak>
 
 ## 🤔 What Is This
 
@@ -26,10 +31,6 @@ Cithak is a **simple, secure yet powerful template manager** CLI. Cithak was des
 
 - **Safe and transparent**  
   Cithak will <u>log every template activities</u> to console and ask for your permission, so you will know what happen behind your screen.
-
-## ❗ Migrating from alpha
-
-If you want to **update Cithak from alpha to beta version**, please copy all of your template first, or you will lost all of your saved template.
 
 ## 📂 Installation
 
@@ -85,16 +86,16 @@ Congratulation, now you know how to use Cithak CLI🎉
 
 ![information](./images/help.png)
 
-**for more CLI information type `cth help` in your terminal**
+for more CLI information type `cth help` in your terminal
 
 ### Joinable Files
 
-- YAML | \*.yml, \*.yaml
-- TOML | \*.toml
-- JSON | \*.json
-- README | README.\[md, txt, markdown\]
-- ENV | .env
-- REST | \*.rest
+- **YAML** \*.yml, \*.yaml
+- **TOML** \*.toml
+- **JSON** \*.json
+- **README** | README.\[md, txt, markdown\]
+- **ENV** \*.env
+- **REST** \*.rest
 - .prettierrc
 - .gitignore
 - .npmignore
@@ -138,6 +139,8 @@ exclude is array of [glob](https://github.com/isaacs/node-glob#readme) string th
    "**/*-ignore.*"
 ]
 ```
+
+**More information, [Visit our website](https://KucingKode.github.io/Cithak)**
 
 ---
 

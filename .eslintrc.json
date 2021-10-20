@@ -9,7 +9,7 @@
     "sourceType": "module",
     "ecmaVersion": 12
   },
-  "ignorePatterns": ["rollup.config.js", "*.json", "build", "bin", "scripts"],
+  "ignorePatterns": ["rollup.config.js", "*.json", "build", "bin", "scripts", "docs"],
   "rules": {
     "prettier/prettier": "error",
     "no-unused-vars": "warn",

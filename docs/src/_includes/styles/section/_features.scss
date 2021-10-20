@@ -1,0 +1,13 @@
+#features {
+  width: 100vw;
+  margin-bottom: 2em;
+
+  .tips {
+    margin-top: -3em;
+    text-align: center;
+  }
+  
+  .tips span {
+    color: var(--primary-color);
+  }
+}

@@ -1,5 +1,6 @@
 src/helpers/info.js
-test/**/*
+test
+docs
 rollup.config.js
 build
 bin

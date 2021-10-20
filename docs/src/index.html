@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="
+        Cithak is a simple, secure, yet powerful cross platform
+        template manager created in nodejs
+    ">
+    <base/>
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/styles/style.scss" />
+  </head>
+  <body class="dark">
+    <div class="bg"></div>
+    <nav>
+      <a href="/" class="title">Cithak <span>v{{ version }}</span></a>
+
+      <div class="links">
+        <a href="#features" class="link">Why?</a>
+        <a href="#installation" class="link">Installation</a>
+        <a href="#commands" class="link">Commands</a>
+      </div>
+      {% react 'components/ThemeToggle.jsx' %}
+    </nav>
+
+    <div id="hero">
+      <div class="hero-image">
+        <img src="/static/logo.svg" alt="" />
+      </div>
+      <h1 class="hero-text">
+        <span style="color: #4636ff">Simple,</span>
+        <span style="color: var(--primary-color)">Secure</span> Yet
+        <span style="color: #3662ff">Powerful</span>
+        Template Manager
+      </h1>
+      <div class="hero-actions">
+        <a href="#installation" class="primary">
+          <div>Quick Start</div>
+        </a>
+        <a href="https://github.com/KucingKode/Cithak" target="_blank">
+          <div>Github</div>
+        </a>
+      </div>
+    </div>
+    
+    <div id="features">
+      <div class="container container-center">
+        {% for feature in features %}
+          <div class="card">
+            <i class="bi bi-{{ feature.icon }}"></i>
+            <p class="title">{{ feature.title }}</p>
+            <p>{{ feature.description | safe }}</p>
+          </div>
+        {% endfor %}
+      </div>
+      <p class="tips">
+        <span>TIPS!</span> Star our github repo <br>
+        <span>TIPS!</span> See for command examples
+      </p>
+    </div>
+
+    <div id="installation">
+      <h2># Installation</h2>
+      <div class="container">
+        <div class="card card-expand">
+          <i class="bi bi-hexagon-fill"></i>
+          <p class="title">Nodejs</p>
+          <p>
+            To install Cithak with Node.js, you can run
+            <span class="highlight">npm i -g cithak</span> 
+            on your terminal. You can visit our npm page
+          </p>
+        </div>
+        <div class="card card-expand">
+          <i class="bi bi-laptop-fill"></i>
+          <p class="title">
+            Executable
+          </p>
+          <p class="subtitle">Windows, Linux, Mac</p>
+          <p>
+            To install Cithak to Windows, Mac, Linux without Node.js,
+            you can
+            <strong><a href="https://github.com/KucingKode/Cithak/releases/latest">
+              download our latest executable
+            </a></strong>
+            on our github
+          </p>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div id="commands">
+      <h2># Commands</h2>
+
+      {% react 'components/CommandSearcher.jsx'%}
+    </div>
+
+    <footer>
+      <p>
+        Released under the MIT License<br/>
+        Copyright © 2021 Fazle Adyuta Utomo
+      </p>
+    </footer>
+  </body>
+</html>
