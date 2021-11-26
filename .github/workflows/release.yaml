@@ -31,7 +31,7 @@ jobs:
           retention-days: 1
 
   build-executable:
-    needs: ['bundle-javascript-file']
+    needs: ['bundle-javascript']
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
