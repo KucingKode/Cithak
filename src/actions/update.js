@@ -48,7 +48,7 @@ export async function update(options) {
     include: templateData.include,
     exclude: templateData.exclude,
     index: options.index,
-    silent: options.silent,
+    quiet: options.quiet,
   })
 
   console.log(

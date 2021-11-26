@@ -13,7 +13,7 @@ export async function list() {
     Object.keys(storageData).forEach((key) => {
       const desc =
         fileHelper.getTemplateData(storageData[key]).description || '...'
-      string += `- ${chalk.magenta(key)}\n${desc}\n\n`
+      string += `- ${chalk.magenta(key)}\n${desc}\n`
     })
 
     console.log(string.replace(/\n\n$/, ''))

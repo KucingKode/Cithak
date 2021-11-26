@@ -14,6 +14,7 @@
 
   ["backup template", "cth backup"],
   ["load backup template", "cth load"],
+  ["bulk save templates", "cth load"],
 
   ["silent cithak", "cth [command] --silent"],
   ["extra path", "cth [command] --path [path/to/directory]"],
@@ -46,5 +47,17 @@
   [
     "save bitbucket template",
     "cth save [template-name] --path bitbcket@[user]/[repo]"
+  ],
+  [
+    "custom path",
+    "cth --path [path]"
+  ],
+  [
+    "quiet mode, silent mode",
+    "cth --silent"
+  ],
+  [
+    "save action, no replace",
+    "cth --safe"
   ]
 ]

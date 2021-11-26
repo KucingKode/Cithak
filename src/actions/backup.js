@@ -16,7 +16,7 @@ export async function backup(options) {
     pathHelper.getTargetPath(targetPath),
     {
       index: options.index,
-      silent: options.silent,
+      quiet: options.quiet,
     }
   )
 
@@ -55,7 +55,7 @@ export async function load(options) {
           safe: options.safe,
           join: !options.noJoin,
           index: options.index,
-          silent: options.silent,
+          quiet: options.quiet,
         }
       )
       storageData[key] = pathHelper.getStorageTemplatePath(key)

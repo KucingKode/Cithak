@@ -33,7 +33,7 @@ async function mergeTemplate(template1, template2, options) {
     safe: options.safe,
     join: !options.noJoin,
     index: options.index,
-    silent: options.silent,
+    quiet: options.quiet,
   })
 
   console.log(

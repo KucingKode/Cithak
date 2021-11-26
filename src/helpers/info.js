@@ -13,11 +13,11 @@ export const main = `
 `
 export const save = `
    ${chalk.blue.bold('Save a new template to your local machine:')}
-   |  ${chalk.yellow('cth save [template-name]')}
+   |  ${chalk.yellow('cth [save|sv] [template-name]')}
 `
 export const clone = `
    ${chalk.blue.bold('Clone a template:')}
-   |  ${chalk.yellow('cth clone ...[template-name or git-repo]')}
+   |  ${chalk.yellow('cth [clone|cl] ...[template-name or git-repo]')}
 `
 export const update = `
    ${chalk.blue.bold('Update added template:')}
@@ -33,7 +33,7 @@ export const load = `
 `
 export const remove = `
    ${chalk.blue.bold('Remove added template:')}
-   |  ${chalk.yellow('cth remove [template-name]')}
+   |  ${chalk.yellow('cth [remove|rm] [template-name]')}
 `
 export const merge = `
    ${chalk.blue.bold('Merge a template with another template:')}
@@ -69,7 +69,7 @@ export const flags = `
    |     ${chalk.yellow('-i, --index')} : prefer index and not overwrite files
    |     ${chalk.yellow('--nj, --no-join')} : copy template without join joinable data file like json file
    |     ${chalk.yellow('--ne, --no-exec')} : copy template without execute any tasks
-   |     ${chalk.yellow('--sl, --silent')} : hide activity detail logs
+   |     ${chalk.yellow('-q, --quiet')} : hide activity detail logs
 `
 
 export const complete =

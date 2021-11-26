@@ -51,6 +51,9 @@ export async function save(options) {
     options.templateName
   )
 
+  storageData[options.templateName] = storageTemplatePath
+  fs.writeFileSync(pathHelper.DATA_JSON, JSON.stringify(storageData))
+
   // if template path is git repo
   if (gitHelper.gitRepoRegex.test(options.targetPath)) {
     try {
@@ -79,16 +82,13 @@ export async function save(options) {
         include: templateData.include,
         exclude: templateData.exclude,
         index: options.index,
-        silent: options.silent,
+        quiet: options.quiet,
       })
     } catch (err) {
       console.log(chalk.red('ERR!'), err)
       return
     }
   }
-
-  storageData[options.templateName] = storageTemplatePath
-  fs.writeFileSync(pathHelper.DATA_JSON, JSON.stringify(storageData))
 
   console.log(
     chalk.green('SUCCESS!'),

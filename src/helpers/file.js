@@ -27,8 +27,10 @@ export function copyFolder(src, dest, options = {}) {
       cwd: src,
       dot: true,
       ignore: [
-        'node_modules',
-        'node_modules/**/*',
+        '**/node_modules',
+        '**/node_modules/**/*',
+        '**/.git',
+        '**/.git/**/*',
         'package-lock.json',
         'pnpm-lock.yaml',
         'yarn.lock',
@@ -49,7 +51,7 @@ export function copyFolder(src, dest, options = {}) {
       // it's a directory
       if (!fs.existsSync(destFile)) {
         fs.mkdirSync(destFile, { recursive: true })
-        !options.silent && console.log(chalk.gray(`copied folder: ${file}`))
+        !options.quiet && console.log(chalk.gray(`copied folder: ${file}`))
       }
     } else {
       // it's a file
@@ -77,7 +79,7 @@ export function copyFolder(src, dest, options = {}) {
         )
 
         fs.writeFileSync(destFile, result)
-        !options.silent &&
+        !options.quiet &&
           console.log(chalk.gray(`joined ${joiner.extension}: ${file}`))
       } else {
         let action = 'copied'
@@ -98,7 +100,7 @@ export function copyFolder(src, dest, options = {}) {
 
         fs.copySync(srcFile, destFile, { overwrite: !options.safe })
 
-        !options.silent && console.log(chalk.gray(`${action}: ${file}`))
+        !options.quiet && console.log(chalk.gray(`${action}: ${file}`))
       }
     }
   })
@@ -112,19 +114,31 @@ export function removeFolder(src, options = {}) {
     })
     .reverse()
 
-  files.forEach((file) => {
-    const srcFile = join(src, file)
+  try {
+    files.forEach((file) => {
+      const srcFile = join(src, file)
 
-    if (fs.lstatSync(srcFile).isDirectory()) {
-      fs.rmdirSync(srcFile)
-      !options.silent && console.log(chalk.gray(`removed folder: ${file}`))
-    } else {
-      fs.rmSync(srcFile)
-      !options.silent && console.log(chalk.gray(`removed: ${file}`))
+      if (fs.lstatSync(srcFile).isDirectory()) {
+        fs.rmdirSync(srcFile)
+        !options.quiet && console.log(chalk.gray(`removed folder: ${file}`))
+      } else {
+        fs.rmSync(srcFile)
+        !options.quiet && console.log(chalk.gray(`removed: ${file}`))
+      }
+    })
+  } catch (err) {
+    console.log(`${chalk.red(`error: ${err.message}`)}`)
+
+    try {
+      console.log(`${chalk.gray(`force deleting ${src}`)}`)
+      fs.rmdirSync(src)
+      console.log(`${chalk.gray(`force deleted ${src}`)}`)
+    } catch (_err) {
+      console.log(
+        `${chalk.red(`\nforce delete failed, please delete ${src} manually`)}`
+      )
     }
-  })
-
-  fs.rmdirSync(src)
+  }
 }
 
 function findIndex(fileName) {

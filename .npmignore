@@ -10,6 +10,7 @@ images
 build/bin
 scripts
 CHANGELOG.md
+CODE_OF_CONDUCT.md
 CONTRIBUTING.md
 .prettierignore
 .prettierrc

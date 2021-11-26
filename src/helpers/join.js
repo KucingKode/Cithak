@@ -40,7 +40,7 @@ function joinText(str1, str2) {
   return `${str1}\n${str2}`
 }
 function joinTextNeat(str1, str2) {
-  return `${str1}\n\n${str2}`
+  return `${str1}\n---\n${str2}`
 }
 
 // helpers

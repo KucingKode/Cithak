@@ -34,6 +34,11 @@ const actions = {
   merge: mergeAction,
   rename: renameAction,
 
+  // alias action
+  cl: cloneAction,
+  rm: removeAction,
+  rn: renameAction,
+
   // backup action
   backup: backupAction.backup,
   load: backupAction.load,
@@ -52,7 +57,7 @@ function parseArgs(rawArgs) {
         '--no-exec': Boolean,
         '--path': String,
         '--index': Boolean,
-        '--silent': Boolean,
+        '--quiet': Boolean,
         '-y': '--yes',
         '-s': '--safe',
         '-h': '--help',
@@ -62,7 +67,7 @@ function parseArgs(rawArgs) {
         '--nj': '--no-join',
         '--ne': '--no-exec',
         '-i': '--index',
-        '--sl': '--silent',
+        '-q': '--quiet',
       },
       {
         argv: rawArgs.slice(2),
@@ -81,7 +86,7 @@ function parseArgs(rawArgs) {
       noJoin: args['--no-join'],
       noExec: args['--no-exec'],
       index: args['--index'],
-      silent: args['--silent'],
+      quiet: args['--quiet'],
 
       changes: parseChanges(args['--change']),
     }
@@ -93,7 +98,10 @@ function parseArgs(rawArgs) {
 
 function parseChanges(str) {
   return str && str.split
-    ? str.split(' ').map((change) => change.split('|'))
+    ? str
+        .split(' ')
+        .filter((val) => val !== '')
+        .map((change) => change.split('|'))
     : []
 }
 

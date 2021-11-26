@@ -63,7 +63,7 @@ async function cloneTemplate(options) {
       safe: options.safe,
       join: !options.noJoin,
       index: options.index,
-      silent: options.silent,
+      quiet: options.quiet,
     })
   } catch (err) {
     console.log(chalk.red('ERR!'), err)
@@ -138,7 +138,7 @@ async function execute(command, cwd, logs) {
 
     shelljs.cd(cwd)
     const stdout = await exec(command, {
-      silent: true,
+      quiet: true,
       async: true,
     })
 
