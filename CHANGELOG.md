@@ -1,5 +1,12 @@
 # Cithak Changelog
 
+## 1.1.0
+
+- Add "remove" and "copy" folder error catch
+- Update tips
+- Add some alias command
+- Change "silent" flag to "quiet"
+
 ## 1.0.1
 
 - Change README.md
