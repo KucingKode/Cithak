@@ -1,3 +1,0 @@
-#!/usr/bin/env node
-
-require('../build/file/cithak').cli(process.argv);
