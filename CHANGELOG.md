@@ -1,5 +1,9 @@
 # Cithak Changelog
 
+## 1.1.1
+
+- add deleted cithak bin file
+
 ## 1.1.0
 
 - Add "remove" and "copy" folder error catch
