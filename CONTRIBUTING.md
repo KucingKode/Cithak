@@ -1,6 +1,6 @@
 # Contributing To Cithak
 
-Cithak was a simple utility CLI to manage templates and was published under [MIT license](./LICENSE.md). It was written in Javascript (node.js) and use Airbnb style guidline.
+Cithak was a simple utility CLI to manage templates and was published under [MIT license](./LICENSE.md). It was written in Javascript (node.js).
 
 ---
 
@@ -20,17 +20,16 @@ If you have any feature idea that you would like to implement in Cithak, we will
 2. Clone this repository.
 3. Run `npm install` in the root of the repository.
 4. Run `npm run dev` to watch changes and build them using rollup.
-5. To test your changes, run `npm link`.
+5. To use cithak, run `npm link`.
+6. now you can use `cth` or `cithak` to use cithak
 
 ## Pull Request
 
-1. Ensure any install or build dependencies are removed before the end of the layer when doing a build.
-
-2. Update the README.md with details of changes to the interface, this includes new environment variables, exposed ports, useful file locations and container parameters.
-
-3. Increase the version numbers in any examples files and the README.md to the new version that this Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/).
-
-4. You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
+- Fork cithak repository
+- Create a new branch with name of your changes
+- Clone your forked repo and do some changes on your branch
+- Test your changes, and after it's good
+- please send us your pull request
 
 ---
 

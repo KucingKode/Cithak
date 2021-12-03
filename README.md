@@ -48,8 +48,8 @@ To use Cithak on Windows, Linux, or Mac without node js, download the latest exe
 
 ## 📃 Documentation
 
-- [Quick Start](#💡-Quick-Start)
-- [Docs](#📘-Docs)
+- [Quick Start](#-quick-start)
+- [Docs](#-docs)
 - [Contributing](./CONTRIBUTING.md)
 - [Code Of Conduct](./CODE_OF_CONDUCT.md)
 - [License](./LICENSE.md)
