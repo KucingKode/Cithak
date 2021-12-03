@@ -40,16 +40,25 @@ export async function update(options) {
     return
   }
 
+  console.log(
+    chalk.magenta(`update ${options.templateName} with ${options.targetPath}`)
+  )
+
   // copy template to storage
   const storageTemplatePath = storageData[options.templateName]
   const templateData = fileHelper.getTemplateData(storageTemplatePath)
 
-  fileHelper.copyFolder(templatePath, storageTemplatePath, {
-    include: templateData.include,
-    exclude: templateData.exclude,
-    index: options.index,
-    quiet: options.quiet,
-  })
+  try {
+    fileHelper.copyFolder(templatePath, storageTemplatePath, {
+      include: templateData.include,
+      exclude: templateData.exclude,
+      index: options.index,
+      quiet: options.quiet,
+    })
+  } catch (err) {
+    console.error(chalk.red('ERR!'), err.message)
+    process.exit(1)
+  }
 
   console.log(
     chalk.green('SUCCESS!'),

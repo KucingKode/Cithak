@@ -18,7 +18,10 @@ export async function clone(options, i = 0) {
 
   const templateName = options.templateNames[i]
 
-  console.log(`${chalk.magenta(templateName)} to ${options.targetPath}`, '\n')
+  console.log(
+    chalk.magenta(`clone ${templateName} to ${options.targetPath}`),
+    '\n'
+  )
 
   if (gitHelper.gitRepoRegex.test(templateName)) {
     await cloneGit({ ...options, templateName })
@@ -66,8 +69,8 @@ async function cloneTemplate(options) {
       quiet: options.quiet,
     })
   } catch (err) {
-    console.log(chalk.red('ERR!'), err)
-    return
+    console.error(chalk.red('ERR!'), err.message)
+    process.exit(1)
   }
 
   if (!options.noExec && templateData.tasks) {

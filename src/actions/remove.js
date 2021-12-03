@@ -10,7 +10,8 @@ export async function remove(options, i = 0) {
 
   const templateName = options.templateNames[i]
 
-  console.log(chalk.magenta(templateName))
+  console.log(chalk.magenta(`remove ${templateName} from storage`))
+
   await removeTemplate({ ...options, templateName })
   console.log('\n')
   await remove(options, i + 1)
@@ -29,10 +30,16 @@ async function removeTemplate(options) {
   }
 
   // delete template folder from storage
-  fileHelper.removeFolder(templatePath, {
-    index: options.index,
-    quiet: options.quiet,
-  })
+  try {
+    fileHelper.removeFolder(templatePath, {
+      index: options.index,
+      quiet: options.quiet,
+    })
+  } catch (err) {
+    console.error(chalk.red('ERR!'), err.message)
+    process.exit(1)
+  }
+
   delete storageData[options.templateName]
 
   // rewrite storage data

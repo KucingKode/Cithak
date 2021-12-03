@@ -54,6 +54,10 @@ export async function save(options) {
   storageData[options.templateName] = storageTemplatePath
   fs.writeFileSync(pathHelper.DATA_JSON, JSON.stringify(storageData))
 
+  console.log(
+    chalk.magenta(`save ${options.targetPath} as ${options.templateName}`)
+  )
+
   // if template path is git repo
   if (gitHelper.gitRepoRegex.test(options.targetPath)) {
     try {
@@ -91,8 +95,8 @@ export async function save(options) {
         quiet: options.quiet,
       })
     } catch (err) {
-      console.log(chalk.red('ERR!'), err)
-      return
+      console.log(chalk.red('ERR!'), err.message)
+      process.exit(1)
     }
   }
 

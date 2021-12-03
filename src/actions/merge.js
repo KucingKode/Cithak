@@ -9,6 +9,7 @@ export async function merge(options, i = 1) {
   if (i >= options.templateNames.length) return
 
   const target = options.templateNames[0]
+
   await mergeTemplate(target, options.templateNames[i], options)
   await merge(options, i + 1)
 }
@@ -29,15 +30,22 @@ async function mergeTemplate(template1, template2, options) {
   const template1Path = storageData[template1]
   const template2Path = storageData[template2]
 
-  fileHelper.copyFolder(template2Path, template1Path, {
-    safe: options.safe,
-    join: !options.noJoin,
-    index: options.index,
-    quiet: options.quiet,
-  })
+  console.log(chalk.magenta(`merge ${template1} -> ${template2}`))
+
+  try {
+    fileHelper.copyFolder(template1Path, template2Path, {
+      safe: options.safe,
+      join: !options.noJoin,
+      index: options.index,
+      quiet: options.quiet,
+    })
+  } catch (err) {
+    console.error(chalk.red('ERR!'), err.message)
+    process.exit(1)
+  }
 
   console.log(
     chalk.green('SUCCESS!'),
-    `Template merged! ${chalk.gray(`${template2} -> ${template1}`)}`
+    `Template merged! ${chalk.gray(`${template1} -> ${template2}`)}`
   )
 }

@@ -31,4 +31,5 @@ export const send = (err, params = {}) => {
   })
 
   console.error(format(message))
+  process.exit(1)
 }

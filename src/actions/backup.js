@@ -22,6 +22,8 @@ export async function backup(options) {
 
   const storageData = fs.readFileSync(pathHelper.DATA_JSON).toString()
 
+  console.log(chalk.magenta(`creating backup to ${targetPath}`))
+
   fs.writeFileSync(
     backupDataPath(targetPath),
     storageData.replace(
@@ -44,6 +46,8 @@ export async function load(options) {
     const backupData = fs.readJSONSync(backupDataPath(targetPath))
     const storageData = fs.readJSONSync(pathHelper.DATA_JSON)
 
+    console.log(chalk.magenta(`bulk save ${targetPath} to storage`))
+
     Object.keys(backupData).forEach((key) => {
       if (!fs.existsSync(backupData[key])) return
       if (options.safe && storageData[key]) return
@@ -64,6 +68,7 @@ export async function load(options) {
     fs.writeFileSync(pathHelper.DATA_JSON, JSON.stringify(storageData))
     console.log(chalk.green('SUCCESS!'), 'Backup loaded!')
   } catch (err) {
-    errorHelper.send(err)
+    console.error(chalk.red('ERR!'), err.message)
+    process.exit(1)
   }
 }

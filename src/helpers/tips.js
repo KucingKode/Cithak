@@ -14,7 +14,5 @@ const tips = [
 
 export function sendTips() {
   const i = Math.round(Math.random() * (tips.length - 1))
-
-  console.log('')
   console.log(chalk.blue('TIPS!'), tips[i])
 }

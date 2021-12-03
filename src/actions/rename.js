@@ -64,6 +64,12 @@ export async function rename(options) {
     return
   }
 
+  console.log(
+    chalk.magenta(
+      `rename ${options.templateName} to ${options.newTemplateName}`
+    )
+  )
+
   const templatePath = storageData[options.templateName]
   const newTemplatePath = pathHelper.getStorageTemplatePath(
     options.newTemplateName
@@ -74,8 +80,8 @@ export async function rename(options) {
     delete storageData[options.templateName]
     storageData[options.newTemplateName] = newTemplatePath
   } catch (err) {
-    console.log(chalk.red('ERR!'), err)
-    return
+    console.log(chalk.red('ERR!'), err.message)
+    process.exit(1)
   }
 
   fs.writeFileSync(pathHelper.DATA_JSON, JSON.stringify(storageData))
