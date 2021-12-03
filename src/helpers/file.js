@@ -51,7 +51,7 @@ export function copyFolder(src, dest, options = {}) {
       // it's a directory
       if (!fs.existsSync(destFile)) {
         fs.mkdirSync(destFile, { recursive: true })
-        !options.quiet && console.log(chalk.gray(`copied folder: ${file}`))
+        !options.quiet && console.log(chalk.gray(`cloned folder: ${file}`))
       }
     } else {
       // it's a file
@@ -82,7 +82,7 @@ export function copyFolder(src, dest, options = {}) {
         !options.quiet &&
           console.log(chalk.gray(`joined ${joiner.extension}: ${file}`))
       } else {
-        let action = 'copied'
+        let action = 'cloned'
 
         if (fs.existsSync(destFile)) {
           if (options.safe) {
@@ -94,7 +94,7 @@ export function copyFolder(src, dest, options = {}) {
           if (options.index) {
             const [newDestFile, i] = findIndex(destFile)
             destFile = newDestFile
-            action = `copied as ${file} (${i})`
+            action = `cloned as ${file} (${i})`
           }
         }
 
@@ -130,12 +130,12 @@ export function removeFolder(src, options = {}) {
     console.log(`${chalk.red(`error: ${err.message}`)}`)
 
     try {
-      console.log(`${chalk.gray(`force deleting ${src}`)}`)
+      console.log(`${chalk.gray(`deleting ${src}`)}`)
       fs.rmdirSync(src)
-      console.log(`${chalk.gray(`force deleted ${src}`)}`)
+      console.log(`${chalk.gray(`deleted ${src}`)}`)
     } catch (_err) {
       console.log(
-        `${chalk.red(`\nforce delete failed, please delete ${src} manually`)}`
+        `${chalk.red(`\ndelete failed, please delete ${src} manually`)}`
       )
     }
   }

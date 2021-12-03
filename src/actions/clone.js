@@ -18,7 +18,7 @@ export async function clone(options, i = 0) {
 
   const templateName = options.templateNames[i]
 
-  console.log(chalk.magenta(templateName), '\n')
+  console.log(`${chalk.magenta(templateName)} to ${options.targetPath}`, '\n')
 
   if (gitHelper.gitRepoRegex.test(templateName)) {
     await cloneGit({ ...options, templateName })

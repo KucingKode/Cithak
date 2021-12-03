@@ -57,7 +57,9 @@ export async function save(options) {
   // if template path is git repo
   if (gitHelper.gitRepoRegex.test(options.targetPath)) {
     try {
-      const { domain, username, repo } = gitHelper.extract(options.targetPath)
+      const { branch, domain, username, repo } = gitHelper.extract(
+        options.targetPath
+      )
 
       if (!shelljs.which('git')) {
         errorHelper.send(errorHelper.GIT_NOT_FOUND)
@@ -67,7 +69,11 @@ export async function save(options) {
       fs.mkdirSync(storageTemplatePath, { recursive: true })
 
       shelljs.cd(storageTemplatePath)
-      shelljs.exec(`git clone ${domain}/${username}/${repo}.git .`)
+      shelljs.exec(
+        `git clone ${
+          branch ? `--branch ${branch}` : ''
+        } ${domain}/${username}/${repo}.git .`
+      )
 
       fs.rmSync(join(storageTemplatePath, '.git'), { recursive: true })
     } catch (err) {
