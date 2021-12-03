@@ -1,5 +1,12 @@
 # Cithak Changelog
 
+## 1.2.0
+
+- add git branch select feature
+- make logs more clear
+- fix error catching
+- use process.exit
+
 ## 1.1.1
 
 - add deleted cithak bin file
