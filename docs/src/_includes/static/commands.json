@@ -34,10 +34,10 @@
 
   ["clone github template", "cth clone github@[user]/[repo]"],
   ["clone gitlab template", "cth clone gitlab@[user]/[repo]"],
-  ["clone bitbucket template", "cth clone bitbcket@[user]/[repo]"],
+  ["clone bitbucket template", "cth clone bitbucket@[user]/[repo]"],
   ["clone github branch template", "cth clone github@[user]/[repo]#[branch]"],
   ["clone gitlab branch template", "cth clone gitlab@[user]/[repo]#[branch]"],
-  ["clone bitbucket branch template", "cth clone bitbcket@[user]/[repo]#[branch]"],
+  ["clone bitbucket branch template", "cth clone bitbucket@[user]/[repo]#[branch]"],
 
   [
     "save github template",
@@ -49,7 +49,7 @@
   ],
   [
     "save bitbucket template",
-    "cth save [template-name] --path bitbcket@[user]/[repo]"
+    "cth save [template-name] --path bitbucket@[user]/[repo]"
   ],
   [
     "custom path",
