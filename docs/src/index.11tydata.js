@@ -38,10 +38,10 @@ module.exports = process({
     },
     {
       icon: 'cloud',
-      title: 'Anywhere',
+      title: 'Flexible',
       description: `
         Cithak also can **use template from anywhere**,
-        clone templates from your local storage,
+        clone templates from your local computer,
         github, gitlab, or bitbucket using git
       `,
     },

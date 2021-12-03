@@ -18,19 +18,35 @@ Homepage: <https://KucingKode.github.io/Cithak>
 
 Cithak is a **simple, secure yet powerful template manager** CLI. Cithak was designed to be safe and transparent, so everything will be done under your permission.
 
+## 📚 Motivation
+
+Cithak was created because sometimes **a template will broke other templates and templates are difficult to manage or combine**. We solve this problem by give Cithak ability to combine readme and configuration files and ability to clone templates from github, gitlab, bitbucket, or your local storage with just simple CLI
+
 ## 💻 Features
 
-- **Smart replacement**  
+- ### **Secure**
+
+  Cithak will log every activities and execute every tasks that you **give permission to execute**, or you can disable task execution with `--no-exec` flag
+
+- ### **Smart**
+
+  Cithak can **do more than overwrite your files**, it can join data from two [joinable files](#joinable-files) like `.json`, `.yaml`, `.env` and many more files or give index to new file, you can disable this feature with `--no-join` flag
+
+- ### **Flexible**
+
+  Cithak can **use template from anywhere**, clone templates from your local storage, github, gitlab, or bitbucket using git. You can use cithak with or without internet connection
+
+<!-- - **Smart replacement**
   Cithak will not replace files that joinable like `.json`, `.yaml`, `.toml`, and `.env`, but cithak will join data from thoose file into one new file, you can disable this feature by add `--no-join` flag.
 
-- **Rich features**  
+- **Rich features**
   Cithak has a lot of super useful feature like save template to your local computer offline use, merge templates, and many more.
 
-- **Template tasks**  
+- **Template tasks**
   <u>Under your permission</u> Cithak allows template to execute npm, node, and all files on your system, but you can disable this with `--no-exec` flag.
 
-- **Safe and transparent**  
-  Cithak will <u>log every template activities</u> to console and ask for your permission, so you will know what happen behind your screen.
+- **Safe and transparent**
+  Cithak will <u>log every template activities</u> to console and ask for your permission, so you will know what happen behind your screen. -->
 
 ## 📂 Installation
 
@@ -79,7 +95,7 @@ Congratulation, now you know how to use Cithak CLI🎉
 ## 📘 Docs
 
 - [CLI](#cli)
-- [Joinable Fi;es](#joinable-files)
+- [Joinable Files](#joinable-files)
 - [Template JSON](#template-json)
 
 ### CLI
