@@ -12,11 +12,12 @@
 
 [![GitHub stars](https://img.shields.io/github/stars/KucingKode/Cithak.svg?style=social&label=Star&maxAge=2592000)](https://GitHub.com/KucingKode/Cithak/stargazers/)
 
-Homepage: <https://KucingKode.github.io/Cithak>
+Homepage: <https://KucingKode.github.io/Cithak>  
+Data merger powered with [Dmerge.js](https://github.com/KucingKode/Dmerge)
 
 ## 🤔 What Is This
 
-Cithak is a **simple, secure yet powerful template manager** CLI. Cithak was designed to be safe and transparent, so everything will be done under your permission.
+Cithak is a **simple, secure yet powerful template manager** CLI. Cithak can merge two templates by merge configuration files from those templates and Cithak was designed to be safe and transparent, so everything will be done under your permission.
 
 ## 📚 Motivation
 
@@ -35,18 +36,6 @@ Cithak was created because sometimes **a template will broke other templates and
 - ### **Flexible**
 
   Cithak can **use template from anywhere**, clone templates from your local storage, github, gitlab, or bitbucket using git. You can use cithak with or without internet connection
-
-<!-- - **Smart replacement**
-  Cithak will not replace files that joinable like `.json`, `.yaml`, `.toml`, and `.env`, but cithak will join data from thoose file into one new file, you can disable this feature by add `--no-join` flag.
-
-- **Rich features**
-  Cithak has a lot of super useful feature like save template to your local computer offline use, merge templates, and many more.
-
-- **Template tasks**
-  <u>Under your permission</u> Cithak allows template to execute npm, node, and all files on your system, but you can disable this with `--no-exec` flag.
-
-- **Safe and transparent**
-  Cithak will <u>log every template activities</u> to console and ask for your permission, so you will know what happen behind your screen. -->
 
 ## 📂 Installation
 
