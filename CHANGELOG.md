@@ -1,5 +1,13 @@
 # Cithak Changelog
 
+## 1.3.0
+
+- remove unused dependencies
+- use [dmerge.js](https://www.npmjs.com/package/dmergejs) for data merging
+- rename `--no-join` to `--no-merge`
+- add merger for `.tml`
+- change `.rest` file merger
+
 ## 1.2.0
 
 - add git branch select feature
