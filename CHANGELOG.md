@@ -7,6 +7,7 @@
 - rename `--no-join` to `--no-merge`
 - add merger for `.tml`
 - change `.rest` file merger
+- optimize binary size
 
 ## 1.2.0
 
