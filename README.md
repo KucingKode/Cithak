@@ -13,7 +13,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/KucingKode/Cithak.svg?style=social&label=Star&maxAge=2592000)](https://GitHub.com/KucingKode/Cithak/stargazers/)
 
 Homepage: <https://KucingKode.github.io/Cithak>  
-Data merger powered with [Dmerge.js](https://github.com/KucingKode/Dmerge)
+File merging powered with [Dmerge.js](https://github.com/KucingKode/Dmerge)
 
 ## 🤔 What Is This
 
@@ -21,7 +21,7 @@ Cithak is a **simple, secure yet powerful template manager** CLI. Cithak can mer
 
 ## 📚 Motivation
 
-Cithak was created because sometimes **a template will broke other templates and templates are difficult to manage or combine**. We solve this problem by give Cithak ability to combine readme and configuration files and ability to clone templates from github, gitlab, bitbucket, or your local storage with just simple CLI
+Cithak was created because sometimes **a template will broke other templates and templates are difficult to manage or combine**. We solve this problem by give Cithak ability to merge readme and configuration files and ability to clone templates from github, gitlab, bitbucket, or your local storage with just simple CLI
 
 ## 💻 Features
 
@@ -31,7 +31,7 @@ Cithak was created because sometimes **a template will broke other templates and
 
 - ### **Smart**
 
-  Cithak can **do more than overwrite your files**, it can join data from two [joinable files](#joinable-files) like `.json`, `.yaml`, `.env` and many more files or give index to new file, you can disable this feature with `--no-join` flag
+  Cithak can **do more than overwrite your files**, it can give index or merge data from two [mergeable files](#mergeable-files) like `.json`, `.yaml`, `.env` and some other configuration files, you can disable this feature with `--no-merge` flag
 
 - ### **Flexible**
 
@@ -84,27 +84,27 @@ Congratulation, now you know how to use Cithak CLI🎉
 ## 📘 Docs
 
 - [CLI](#cli)
-- [Joinable Files](#joinable-files)
-- [Template JSON](#template-json)
+- [mergeable Files](#mergeable-files)
+- [template.json](#template-json)
 
 ### CLI
 
 ![information](./images/help.png)
 
-for more CLI information type `cth help` in your terminal
+for more CLI information type `cth help` in your terminal or [search for command example](https://kucingkode.github.io/Cithak/#commands)
 
-### Joinable Files
+### mergeable Files
 
-- **YAML** \*.yml, \*.yaml
-- **TOML** \*.toml
-- **JSON** \*.json
-- **README** | README.\[md, txt, markdown\]
-- **ENV** \*.env
-- **REST** \*.rest
-- .prettierrc
-- .gitignore
-- .npmignore
-- .prettierignore
+- **YAML** : `*.yml`, `*.yaml`
+- **TOML** : `*.toml` `*.tml`
+- **JSON** : `*.json`
+- **README** : `README.[md, txt, markdown]`
+- **ENV** : `*.env`
+- **REST** : `*.rest`
+- `.prettierrc`
+- `.gitignore`
+- `.npmignore`
+- `.prettierignore`
 
 ### Template JSON
 
@@ -152,6 +152,8 @@ exclude is array of [glob](https://github.com/isaacs/node-glob#readme) string th
 ## 🎂 Contibuting
 
 If you interested in contributing to this project, please read our [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+> We are currently working on rewriting Cithak to TypeScript to make the cithak code more understandable and clear
 
 ## 📃 License
 

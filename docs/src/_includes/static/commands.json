@@ -16,14 +16,14 @@
   ["load backup template", "cth load"],
   ["bulk save templates", "cth load"],
 
-  ["silent cithak", "cth [command] --silent"],
+  ["silent cithak", "cth [command] --quiet"],
   ["extra path", "cth [command] --path [path/to/directory]"],
   [
     "clone with change tasks executed file",
     "cth clone [template-name] --change '[file]|[new-file],[...]'"
   ],
 
-  ["clone with no join", "cth clone [...template-name] --no-join"],
+  ["clone with no merge", "cth clone [...template-name] --no-merge"],
   ["clone with no execute task", "cth clone [...template-name] --no-exec"],
   ["clone with execute all task", "cth clone [...template-name] --yes"],
   [
@@ -57,7 +57,7 @@
   ],
   [
     "quiet mode, silent mode",
-    "cth --silent"
+    "cth --quiet"
   ],
   [
     "save action, no replace",

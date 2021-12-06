@@ -16,8 +16,8 @@ module.exports = process({
       icon: 'file-earmark',
       title: 'Smart',
       description: `
-        Cithak can **do more than overwrite your files**, it can join two
-        .json, .yaml, .env and many more files or give index to new file
+        Cithak can **do more than overwrite your files**, cithak can give index or 
+        merge configuration files such as .json, .yaml, .env and many more files
       `,
     },
     {
