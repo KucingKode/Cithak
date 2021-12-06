@@ -3,7 +3,7 @@ import glob from 'glob'
 import chalk from 'chalk'
 import { join } from 'path'
 
-import { joinables } from './join'
+import { mergeables } from './merge'
 
 // data getter
 export function getTemplateData(templatePath) {
@@ -55,15 +55,15 @@ export function copyFolder(src, dest, options = {}) {
       }
     } else {
       // it's a file
-      const joinable = fs.existsSync(destFile) && options.join
-      let joiner
+      const mergeable = fs.existsSync(destFile) && options.merge
+      let merger
 
-      if (joinable) {
-        for (let i = 0; i < joinables.length; i += 1) {
-          const [extension, func] = joinables[i]
+      if (mergeable) {
+        for (let i = 0; i < mergeables.length; i += 1) {
+          const [extension, func] = mergeables[i]
 
           if (srcFile.toLowerCase().endsWith(extension)) {
-            joiner = {
+            merger = {
               extension,
               func,
             }
@@ -72,15 +72,15 @@ export function copyFolder(src, dest, options = {}) {
         }
       }
 
-      if (joinable && joiner) {
-        const result = joiner.func(
+      if (mergeable && merger) {
+        const result = merger.func(
           fs.readFileSync(srcFile).toString(),
           fs.readFileSync(destFile).toString()
         )
 
         fs.writeFileSync(destFile, result)
         !options.quiet &&
-          console.log(chalk.gray(`joined ${joiner.extension}: ${file}`))
+          console.log(chalk.gray(`merged ${merger.extension}: ${file}`))
       } else {
         let action = 'cloned'
 

@@ -67,7 +67,7 @@ export const flags = `
    |     ${chalk.gray('( ex: \'npm|pnpm\' ) : npm i package -> pnpm i package')}
    
    |     ${chalk.yellow('-i, --index')} : prefer index and not overwrite files
-   |     ${chalk.yellow('--nj, --no-join')} : copy template without join joinable data file like json file
+   |     ${chalk.yellow('--nm, --no-merge')} : copy template without merge mergeables files like json file
    |     ${chalk.yellow('--ne, --no-exec')} : copy template without execute any tasks
    |     ${chalk.yellow('-q, --quiet')} : hide activity detail logs
 `

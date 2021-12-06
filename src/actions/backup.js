@@ -57,7 +57,7 @@ export async function load(options) {
         pathHelper.getStorageTemplatePath(key),
         {
           safe: options.safe,
-          join: !options.noJoin,
+          merge: !options.noMerge,
           index: options.index,
           quiet: options.quiet,
         }

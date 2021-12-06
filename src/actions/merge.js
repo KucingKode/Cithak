@@ -35,7 +35,7 @@ async function mergeTemplate(template1, template2, options) {
   try {
     fileHelper.copyFolder(template1Path, template2Path, {
       safe: options.safe,
-      join: !options.noJoin,
+      merge: !options.noMerge,
       index: options.index,
       quiet: options.quiet,
     })
