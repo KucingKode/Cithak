@@ -2,7 +2,10 @@ import eslint from '@rollup/plugin-eslint'
 import json from '@rollup/plugin-json'
 import { terser } from 'rollup-plugin-terser'
 
+import pkg from './package.json'
+
 const production = process.env.NODE_ENV === 'production'
+const builtins = ['os', 'util', 'path']
 
 /**
  * @type {import('rollup').RollupOptions}
@@ -13,14 +16,10 @@ const config = {
     file: 'build/file/cithak.js',
     format: 'cjs'
   },
-  external: [
-    'fs-extra', 'glob', 'arg', 'inquirer', 'path', 'os',
-    'chalk', 'yaml', '@iarna/toml', 'listr', 'execa', 'util',
-    'shelljs'
-  ],
+  external: [...builtins, ...Object.keys({...pkg.dependencies, ...pkg.devDependencies})],
   plugins: [
-    json(),
     eslint(),
+    json(),
     production && terser()
   ],
   watch: {

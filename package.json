@@ -9,9 +9,9 @@
     "dev": "rollup -cw",
     "deploy": "npm run build-docs && node ./scripts/deploy.js",
     "build-docs": "cd ./docs && npm run build",
-    "build-ubuntu-latest": "pkg -t linux -o ./build/bin/cithak-linux ./cithak.js",
-    "build-windows-latest": "pkg -t win -o ./build/bin/cithak-win ./cithak.js",
-    "build-macos-latest": "pkg -t mac -o ./build/bin/cithak-mac ./cithak.js"
+    "build-ubuntu-latest": "pkg -t node10-linux --compress GZip -o ./build/bin/cithak-linux ./cithak.js",
+    "build-windows-latest": "pkg -t node10-win --compress GZip -o ./build/bin/cithak-win ./cithak.js",
+    "build-macos-latest": "pkg -t node10-mac --compress GZip -o ./build/bin/cithak-mac ./cithak.js"
   },
   "bin": {
     "cithak": "bin/cithak",

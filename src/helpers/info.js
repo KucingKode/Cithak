@@ -1,7 +1,5 @@
 import chalk from 'chalk'
-import pkg from '../../package.json'
-
-const VERSION = pkg.version
+import {version as VERSION} from '../../package.json'
 
 export const stuck = `
    ${chalk.blue.bold('INFO!')} For more info please type ${chalk.yellow('cth --help')}

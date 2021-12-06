@@ -1,6 +1,6 @@
 import arg from 'arg'
 import fs from 'fs-extra'
-import pkg from '../package.json'
+import { version as VERSION } from '../package.json'
 
 import * as pathHelper from './helpers/path'
 import * as errorHelper from './helpers/error'
@@ -117,7 +117,7 @@ exports.cli = async (args) => {
   if (options.err) return
 
   if (options.needVersion) {
-    await console.log(`v${pkg.version}`)
+    await console.log(`v${VERSION}`)
   } else if (options.action === 'help' || options.needHelp) {
     await actions.help(options)
   } else if (actions[options.action]) {
